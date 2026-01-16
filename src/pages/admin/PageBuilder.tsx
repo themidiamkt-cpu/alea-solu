@@ -365,7 +365,21 @@ const PageBuilderContent = () => {
                                 <SectionHeader id="steps" title="Passos (Processo)" isActive={activeSection === "steps"} onToggle={toggleSection} />
                                 {activeSection === "steps" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4">{[1, 2, 3, 4, 5, 6].map(i => <div key={i}><p className="text-accent-gold text-xs font-bold mb-2 mt-2">PASSO {i}</p><FieldInput label="Titulo" contentKey={`home_step_${i}`} field="title" defaultValue="" /><FieldInput label="Texto" contentKey={`home_step_${i}`} field="text" defaultValue="" multiline /></div>)}</div>}
                                 <SectionHeader id="about" title="Sobre Nós" isActive={activeSection === "about"} onToggle={toggleSection} />
-                                {activeSection === "about" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4"><FieldInput label="Título" contentKey="home_about" field="title" defaultValue="" /><FieldInput label="Texto" contentKey="home_about" field="text" defaultValue="" multiline /><FieldImage label="Imagem" contentKey="home_about" field="image_url" defaultValue="" /></div>}
+                                {activeSection === "about" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4">
+                                    <FieldInput label="Título" contentKey="home_about" field="title" defaultValue="" />
+                                    <FieldInput label="Texto" contentKey="home_about" field="text" defaultValue="" multiline />
+                                    <FieldImage label="Imagem" contentKey="home_about" field="image_url" defaultValue="" />
+
+                                    <p className="text-xs text-accent-gold font-bold mt-4 mb-2">ESTATÍSTICAS</p>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <div><FieldInput label="Valor 1" contentKey="home_stats_1" field="number" defaultValue="12" /></div>
+                                        <div><FieldInput label="Label 1" contentKey="home_stats_1" field="label" defaultValue="Anos de Exp." /></div>
+                                        <div><FieldInput label="Valor 2" contentKey="home_stats_2" field="number" defaultValue="500" /></div>
+                                        <div><FieldInput label="Label 2" contentKey="home_stats_2" field="label" defaultValue="Imóveis" /></div>
+                                        <div><FieldInput label="Valor 3" contentKey="home_stats_3" field="number" defaultValue="98" /></div>
+                                        <div><FieldInput label="Label 3" contentKey="home_stats_3" field="label" defaultValue="Sucesso" /></div>
+                                    </div>
+                                </div>}
                                 <SectionHeader id="cta" title="CTA Home" isActive={activeSection === "cta"} onToggle={toggleSection} />
                                 {activeSection === "cta" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4">
                                     <FieldInput label="Título" contentKey="home_cta" field="title" defaultValue="" />
