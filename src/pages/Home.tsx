@@ -335,15 +335,15 @@ const Home = () => {
               <div className="grid grid-cols-3 gap-6 mb-8">
                 <div className="text-center">
                   <div className="text-4xl font-bold text-accent-gold">{yearsCount}+</div>
-                  <div className="text-sm text-gray-500">Anos de Experiência</div>
+                  <div className="text-sm text-gray-500">{(stats1 as any)?.label || "Anos de Experiência"}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-accent-gold">{propertiesCount}+</div>
-                  <div className="text-sm text-gray-500">Imóveis Arrematados</div>
+                  <div className="text-sm text-gray-500">{(stats2 as any)?.label || "Imóveis Arrematados"}</div>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-accent-gold">{successCount}%</div>
-                  <div className="text-sm text-gray-500">Taxa de Sucesso</div>
+                  <div className="text-sm text-gray-500">{(stats3 as any)?.label || "Taxa de Sucesso"}</div>
                 </div>
               </div>
 
