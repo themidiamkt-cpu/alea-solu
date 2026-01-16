@@ -36,5 +36,10 @@ export const AdminAuthGuard = () => {
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }
 
+  // Redirect to dashboard if trying to access root admin path
+  if (location.pathname === "/admin" || location.pathname === "/admin/") {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
   return <Outlet />;
 };
