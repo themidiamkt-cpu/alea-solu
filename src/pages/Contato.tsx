@@ -6,9 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Contato = () => {
   const { toast } = useToast();
+  const { data: hero } = useSiteContent("contact_hero");
+  const { data: info } = useSiteContent("contact_info");
+  const { data: formContent } = useSiteContent("contact_form");
+  const { data: homeCta } = useSiteContent("home_cta"); // For Webhook URL
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,15 +27,42 @@ const Contato = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    const webhookUrl = (homeCta as any)?.webhook_url;
+
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...formData,
+            source: 'contact_page',
+            timestamp: new Date().toISOString()
+          })
+        });
+        toast({
+          title: "Mensagem enviada!",
+          description: "Recebemos seu contato com sucesso.",
+        });
+      } catch (error) {
+        console.error("Webhook error:", error);
+        toast({
+          title: "Erro ao enviar",
+          description: "Tente novamente mais tarde.",
+          variant: "destructive"
+        });
+      }
+    } else {
+      // Fallback simulation
+      await new Promise(resolve => setTimeout(resolve, 1000));
       toast({
         title: "Mensagem enviada!",
         description: "Entraremos em contato em breve.",
       });
-      setFormData({ name: "", email: "", phone: "", message: "" });
-      setIsSubmitting(false);
-    }, 1000);
+    }
+
+    setFormData({ name: "", email: "", phone: "", message: "" });
+    setIsSubmitting(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -48,15 +81,14 @@ const Contato = () => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80')",
+            backgroundImage: `url('${(hero as any)?.image_url || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80"}')`,
           }}
         >
           <div className="absolute inset-0 hero-overlay"></div>
         </div>
         <div className="relative z-10 text-center text-white animate-fade-in">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4">Contato</h1>
-          <p className="text-xl text-white/90">Estamos prontos para atendê-lo</p>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4">{(hero as any)?.title || "Contato"}</h1>
+          <p className="text-xl text-white/90">{(hero as any)?.subtitle || "Estamos prontos para atendê-lo"}</p>
         </div>
       </section>
 
@@ -67,11 +99,10 @@ const Contato = () => {
             {/* Contact Information */}
             <div className="animate-fade-in">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-6">
-                Fale Conosco
+                {(info as any)?.title || "Fale Conosco"}
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Entre em contato conosco através dos nossos canais de atendimento. 
-                Estamos sempre prontos para ajudá-lo a encontrar as melhores oportunidades.
+              <p className="text-lg text-muted-foreground mb-8 whitespace-pre-line">
+                {(info as any)?.text || "Entre em contato conosco através dos nossos canais de atendimento.\nEstamos sempre prontos para ajudá-lo a encontrar as melhores oportunidades."}
               </p>
 
               <div className="space-y-6">
@@ -81,8 +112,7 @@ const Contato = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-primary mb-1">Telefone</h3>
-                    <p className="text-muted-foreground">(11) 98765-4321</p>
-                    <p className="text-muted-foreground">(11) 3456-7890</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{(info as any)?.phone || "(11) 98765-4321"}</p>
                   </div>
                 </div>
 
@@ -92,8 +122,7 @@ const Contato = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-primary mb-1">E-mail</h3>
-                    <p className="text-muted-foreground">contato@grupoalea.com.br</p>
-                    <p className="text-muted-foreground">leiloes@grupoalea.com.br</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{(info as any)?.email || "contato@grupoalea.com.br"}</p>
                   </div>
                 </div>
 
@@ -103,9 +132,8 @@ const Contato = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-primary mb-1">Endereço</h3>
-                    <p className="text-muted-foreground">
-                      Av. Paulista, 1000 - Bela Vista<br />
-                      São Paulo - SP, 01310-100
+                    <p className="text-muted-foreground whitespace-pre-line">
+                      {(info as any)?.address || "Av. Paulista, 1000 - Bela Vista\nSão Paulo - SP, 01310-100"}
                     </p>
                   </div>
                 </div>
@@ -116,10 +144,8 @@ const Contato = () => {
                 <h3 className="font-serif font-semibold text-lg text-primary mb-4">
                   Horário de Atendimento
                 </h3>
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <p>Segunda a Sexta: 9h às 18h</p>
-                  <p>Sábado: 9h às 13h</p>
-                  <p>Domingo: Fechado</p>
+                <div className="space-y-2 text-sm text-muted-foreground whitespace-pre-line">
+                  {(info as any)?.hours || "Segunda a Sexta: 9h às 18h\nSábado: 9h às 13h\nDomingo: Fechado"}
                 </div>
               </div>
             </div>
@@ -127,7 +153,7 @@ const Contato = () => {
             {/* Contact Form */}
             <div className="card-premium p-8 animate-fade-in-up">
               <h3 className="text-2xl font-serif font-semibold text-primary mb-6">
-                Envie sua Mensagem
+                {(formContent as any)?.title || "Envie sua Mensagem"}
               </h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>

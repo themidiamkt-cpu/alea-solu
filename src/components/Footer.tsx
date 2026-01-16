@@ -22,9 +22,7 @@ export const Footer = ({ previewContent }: { previewContent?: any }) => {
           {/* About */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-accent rounded-md flex items-center justify-center">
-                <span className="text-primary font-bold text-xl font-serif">GA</span>
-              </div>
+              <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain rounded-md" />
               <div className="flex flex-col">
                 <span className="text-lg font-serif font-semibold leading-tight">
                   {about?.title || "Grupo Alea"}

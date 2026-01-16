@@ -30,11 +30,7 @@ export const Navbar = () => {
           }`}>
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl font-serif">
-                {(logoText?.text || "GA").substring(0, 2)}
-              </span>
-            </div>
+            <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
             <div className="flex flex-col">
               <span className="text-lg font-serif font-semibold text-primary leading-tight">
                 {logoText?.text || "Grupo Alea"}

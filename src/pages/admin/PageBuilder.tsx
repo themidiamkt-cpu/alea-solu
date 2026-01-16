@@ -11,7 +11,7 @@ import {
     ArrowRight, Mail, ChevronDown, ChevronUp,
     ClipboardCheck, Scale, CheckCircle2,
     Monitor, Tablet, Smartphone, ZoomIn, ZoomOut,
-    Menu, X, LayoutTemplate
+    Menu, X, LayoutTemplate, Phone
 } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { PageBuilderProvider, usePageBuilder } from "@/components/admin/builder/PageBuilderContext";
@@ -218,6 +218,82 @@ const ServicosPreview = ({ contents, updateContent }: { contents: any, updateCon
     );
 };
 
+// --- CONTATO PREVIEW COMPONENT ---
+const ContatoPreview = ({ contents, updateContent }: { contents: any, updateContent: any }) => {
+    const getContent = (key: string, field: string, defaultVal: string = "") => contents[key]?.[field] || defaultVal;
+
+    return (
+        <div className="min-h-screen bg-white">
+            <div className="pointer-events-none"><Navbar /></div>
+
+            {/* Hero */}
+            <section className="relative h-[40vh] flex items-center justify-center overflow-hidden mt-20">
+                <div className="absolute inset-0 z-0">
+                    <EditableImage src={getContent("contact_hero", "image_url", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80")} onUpload={u => updateContent("contact_hero", "image_url", u)} className="w-full h-full object-cover" bucket="site" />
+                    <div className="absolute inset-0 bg-black/50"></div>
+                </div>
+                <div className="relative z-10 text-center text-white p-4">
+                    <EditableText value={getContent("contact_hero", "title", "Contato")} onChange={v => updateContent("contact_hero", "title", v)} className="text-5xl md:text-6xl font-serif font-bold mb-4 bg-transparent border-none text-center w-full" />
+                    <EditableText value={getContent("contact_hero", "subtitle", "Estamos prontos para atendê-lo")} onChange={v => updateContent("contact_hero", "subtitle", v)} className="text-xl text-white/90 bg-transparent border-none text-center w-full" />
+                </div>
+            </section>
+
+            <section className="section-spacing bg-background">
+                <div className="container-custom">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div>
+                            <EditableText value={getContent("contact_info", "title", "Fale Conosco")} onChange={v => updateContent("contact_info", "title", v)} className="text-3xl md:text-4xl font-serif font-bold text-primary mb-6 bg-transparent border-none p-0 w-full" />
+                            <EditableText value={getContent("contact_info", "text", "Entre em contato conosco através dos nossos canais de atendimento...")} onChange={v => updateContent("contact_info", "text", v)} multiline className="text-lg text-gray-500 mb-8 bg-transparent border-none p-0 w-full" />
+
+                            <div className="space-y-6">
+                                <div className="flex items-start space-x-4">
+                                    <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"><Phone className="text-primary-navy" size={20} /></div>
+                                    <div className="w-full">
+                                        <h3 className="font-semibold text-primary mb-1">Telefone / WhatsApp</h3>
+                                        <EditableText value={getContent("contact_info", "phone", "(11) 98765-4321")} onChange={v => updateContent("contact_info", "phone", v)} multiline className="text-gray-500 bg-transparent border-none p-0 w-full" />
+                                    </div>
+                                </div>
+                                <div className="flex items-start space-x-4">
+                                    <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"><Mail className="text-primary-navy" size={20} /></div>
+                                    <div className="w-full">
+                                        <h3 className="font-semibold text-primary mb-1">E-mail</h3>
+                                        <EditableText value={getContent("contact_info", "email", "contato@grupoalea.com.br")} onChange={v => updateContent("contact_info", "email", v)} multiline className="text-gray-500 bg-transparent border-none p-0 w-full" />
+                                    </div>
+                                </div>
+                                <div className="flex items-start space-x-4">
+                                    <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0"><MapPin className="text-primary-navy" size={20} /></div>
+                                    <div className="w-full">
+                                        <h3 className="font-semibold text-primary mb-1">Endereço</h3>
+                                        <EditableText value={getContent("contact_info", "address", "Av. Paulista, 1000 - Bela Vista - SP")} onChange={v => updateContent("contact_info", "address", v)} multiline className="text-gray-500 bg-transparent border-none p-0 w-full" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
+                                <h3 className="font-serif font-semibold text-lg text-primary mb-4">Horário de Atendimento</h3>
+                                <EditableText value={getContent("contact_info", "hours", "Segunda a Sexta: 9h às 18h\nSábado: 9h às 13h")} onChange={v => updateContent("contact_info", "hours", v)} multiline className="text-sm text-gray-500 bg-transparent border-none p-0 w-full" />
+                            </div>
+                        </div>
+
+                        <div className="card-premium p-8 border border-gray-100 shadow-lg rounded-2xl">
+                            <EditableText value={getContent("contact_form", "title", "Envie sua Mensagem")} onChange={v => updateContent("contact_form", "title", v)} className="text-2xl font-serif font-semibold text-primary mb-6 bg-transparent border-none p-0 w-full" />
+                            <div className="space-y-4 opacity-50 pointer-events-none">
+                                <Input placeholder="Nome" disabled />
+                                <Input placeholder="Email" disabled />
+                                <Textarea placeholder="Mensagem" disabled />
+                                <Button className="w-full bg-accent-gold">Enviar</Button>
+                            </div>
+                            <p className="text-xs text-red-500 mt-4">* Formulário usa o mesmo Webhook da Home</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div className="pointer-events-none z-20 relative"><Footer previewContent={contents} /></div>
+        </div>
+    );
+};
+
 // --- CONTROLLER ---
 const PageBuilderContent = () => {
     const navigate = useNavigate();
@@ -225,7 +301,7 @@ const PageBuilderContent = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [activeSection, setActiveSection] = useState<string | null>("hero");
-    const [activePage, setActivePage] = useState<'home' | 'services'>('home');
+    const [activePage, setActivePage] = useState<'home' | 'services' | 'contact'>('home');
     const [previewMode, setPreviewMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
     const [zoom, setZoom] = useState(100);
 
@@ -269,9 +345,10 @@ const PageBuilderContent = () => {
                 {/* Sidebar */}
                 <div className={`${sidebarOpen ? 'w-80 translate-x-0' : 'w-0 -translate-x-full opacity-0'} transition-all duration-300 bg-gray-900 border-r border-gray-800 flex flex-col shrink-0 overflow-hidden relative z-40`}>
                     <div className="p-4 border-b border-gray-800">
-                        <div className="grid grid-cols-2 gap-2 bg-gray-800 p-1 rounded-lg">
-                            <button onClick={() => setActivePage('home')} className={`py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${activePage === 'home' ? 'bg-primary-navy text-white shadow' : 'text-gray-400 hover:text-white'}`}>Home</button>
-                            <button onClick={() => setActivePage('services')} className={`py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${activePage === 'services' ? 'bg-primary-navy text-white shadow' : 'text-gray-400 hover:text-white'}`}>Serviços</button>
+                        <div className="grid grid-cols-3 gap-2 bg-gray-800 p-1 rounded-lg">
+                            <button onClick={() => setActivePage('home')} className={`py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-md transition-colors ${activePage === 'home' ? 'bg-primary-navy text-white shadow' : 'text-gray-400 hover:text-white'}`}>Home</button>
+                            <button onClick={() => setActivePage('services')} className={`py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-md transition-colors ${activePage === 'services' ? 'bg-primary-navy text-white shadow' : 'text-gray-400 hover:text-white'}`}>Serviços</button>
+                            <button onClick={() => setActivePage('contact')} className={`py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-md transition-colors ${activePage === 'contact' ? 'bg-primary-navy text-white shadow' : 'text-gray-400 hover:text-white'}`}>Contato</button>
                         </div>
                     </div>
                     <div className="flex-1 overflow-y-auto p-4 space-y-2 pb-20 scrollbar-thin scrollbar-thumb-gray-700">
@@ -305,13 +382,34 @@ const PageBuilderContent = () => {
                                     <div className="bg-gray-800 p-2 rounded"><p className="text-accent-gold text-xs font-bold mb-1">REDES SOCIAIS (Links)</p><FieldInput label="Facebook" contentKey="footer_social" field="text" defaultValue="#" /><FieldInput label="Instagram" contentKey="footer_social" field="subtitle" defaultValue="#" /><FieldInput label="LinkedIn" contentKey="footer_social" field="title" defaultValue="#" /></div>
                                 </div>}
                             </>
-                        ) : (
+                        ) : activePage === 'services' ? (
                             <>
                                 <SectionHeader id="s_hero" title="Hero Serviços" isActive={activeSection === "s_hero"} onToggle={toggleSection} />
                                 {activeSection === "s_hero" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4"><FieldInput label="Título" contentKey="services_hero" field="title" defaultValue="" /><FieldInput label="Subtítulo" contentKey="services_hero" field="subtitle" defaultValue="" /><FieldImage label="Fundo" contentKey="services_hero" field="image_url" defaultValue="" /></div>}
                                 {[1, 2, 3, 4].map(i => (<div key={i}><SectionHeader id={`s_${i}`} title={`Serviço ${i}`} isActive={activeSection === `s_${i}`} onToggle={toggleSection} />{activeSection === `s_${i}` && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4"><FieldInput label="Título" contentKey={`service_${i}`} field="title" defaultValue="" /><FieldInput label="Descrição" contentKey={`service_${i}`} field="text" defaultValue="" multiline /><FieldInput label="Features" contentKey={`service_${i}`} field="features" defaultValue="" multiline /><FieldImage label="Imagem" contentKey={`service_${i}`} field="image_url" defaultValue="" /></div>}</div>))}
                                 <SectionHeader id="s_cta" title="CTA Serviços" isActive={activeSection === "s_cta"} onToggle={toggleSection} />
                                 {activeSection === "s_cta" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4"><FieldInput label="Título" contentKey="services_cta" field="title" defaultValue="" /><FieldInput label="Texto" contentKey="services_cta" field="text" defaultValue="" multiline /></div>}
+                            </>
+                        ) : (
+                            <>
+                                <SectionHeader id="c_hero" title="Topo Contato" isActive={activeSection === "c_hero"} onToggle={toggleSection} />
+                                {activeSection === "c_hero" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4"><FieldInput label="Título" contentKey="contact_hero" field="title" defaultValue="" /><FieldInput label="Subtítulo" contentKey="contact_hero" field="subtitle" defaultValue="" /><FieldImage label="Fundo" contentKey="contact_hero" field="image_url" defaultValue="" /></div>}
+                                <SectionHeader id="c_info" title="Informações" isActive={activeSection === "c_info"} onToggle={toggleSection} />
+                                {activeSection === "c_info" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4">
+                                    <FieldInput label="Título Principal" contentKey="contact_info" field="title" defaultValue="" />
+                                    <FieldInput label="Texto Intro" contentKey="contact_info" field="text" defaultValue="" multiline />
+                                    <p className="text-xs text-gray-500 mt-2 font-bold">INFO DE CONTATO</p>
+                                    <FieldInput label="Telefone" contentKey="contact_info" field="phone" defaultValue="" multiline />
+                                    <FieldInput label="Email" contentKey="contact_info" field="email" defaultValue="" multiline />
+                                    <FieldInput label="Endereço" contentKey="contact_info" field="address" defaultValue="" multiline />
+                                    <FieldInput label="Horários" contentKey="contact_info" field="hours" defaultValue="" multiline />
+                                </div>}
+                                <SectionHeader id="c_form" title="Formulário / Webhook" isActive={activeSection === "c_form"} onToggle={toggleSection} />
+                                {activeSection === "c_form" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4">
+                                    <FieldInput label="Título do Form" contentKey="contact_form" field="title" defaultValue="" />
+                                    <p className="text-xs text-yellow-500 mb-2">Este formulário compartilha a mesma URL de Webhook da Home Page.</p>
+                                    <FieldInput label="Webhook URL (N8N/Make)" contentKey="home_cta" field="webhook_url" defaultValue="" />
+                                </div>}
                             </>
                         )}
                     </div>
@@ -329,11 +427,13 @@ const PageBuilderContent = () => {
                             height: 'auto'
                         }}
                     >
-                        {activePage === 'home' ? <HomePreview contents={contents} updateContent={updateContent} /> : <ServicosPreview contents={contents} updateContent={updateContent} />}
+                        {activePage === 'home' ? <HomePreview contents={contents} updateContent={updateContent} /> : activePage === 'services' ? <ServicosPreview contents={contents} updateContent={updateContent} /> : <ContatoPreview contents={contents} updateContent={updateContent} />}
                     </div>
                 </div>
             </div>
+
         </div>
+
     );
 };
 
