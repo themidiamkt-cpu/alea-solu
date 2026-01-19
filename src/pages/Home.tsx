@@ -171,7 +171,7 @@ const Home = () => {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden pt-28 md:pt-0">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
@@ -185,15 +185,15 @@ const Home = () => {
         {/* Content */}
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
               {(heroContent as any)?.title || "Encontre um imóvel de leilão para você investir!"}
             </h1>
-            <p className="text-xl text-gray-200 mb-10">
+            <p className="text-lg md:text-xl text-gray-200 mb-6 md:mb-10">
               {(heroContent as any)?.subtitle || "Consultoria especializada em leilões judiciais e extrajudiciais"}
             </p>
 
             {/* Hero Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-10">
               <Button
                 onClick={() => handleNavigation((heroContent as any)?.button1_url || "https://wa.me/")}
                 className="bg-gradient-to-r from-accent-gold to-yellow-500 hover:from-yellow-400 hover:to-accent-gold text-primary-navy font-bold px-8 py-3 rounded-xl min-w-[150px] shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/40 transition-all transform hover:-translate-y-1"
@@ -210,7 +210,7 @@ const Home = () => {
             </div>
 
             {/* Search Form */}
-            <div className="bg-white rounded-xl p-6 shadow-2xl">
+            <div className="bg-white rounded-xl p-4 md:p-6 shadow-2xl">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
 
                 {/* Category Filter */}

@@ -102,18 +102,18 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
             <div className="pointer-events-none origin-top-left"><Navbar /></div>
 
             {/* HERO */}
-            <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+            <section className="relative min-h-[85vh] flex items-center overflow-hidden pt-28 md:pt-0">
                 <div className="absolute inset-0 z-0"><EditableImage src={getContent("home_hero", "image_url", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80")} onUpload={(url) => updateContent("home_hero", "image_url", url)} className="w-full h-full object-cover" bucket="site" /><div className="absolute inset-0 bg-gradient-to-r from-primary-navy/95 via-primary-navy/70 to-transparent" /></div>
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="max-w-2xl">
-                        <EditableText value={getContent("home_hero", "title", "Encontre um imóvel...")} onChange={(v) => updateContent("home_hero", "title", v)} className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight bg-transparent border-none p-0 w-full" />
-                        <EditableText value={getContent("home_hero", "subtitle", "Consultoria especializada...")} onChange={(v) => updateContent("home_hero", "subtitle", v)} className="text-xl text-gray-200 mb-10 bg-transparent border-none p-0 w-full" />
-                        <div className="flex flex-col sm:flex-row gap-4 mb-10">
+                        <EditableText value={getContent("home_hero", "title", "Encontre um imóvel...")} onChange={(v) => updateContent("home_hero", "title", v)} className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight bg-transparent border-none p-0 w-full" />
+                        <EditableText value={getContent("home_hero", "subtitle", "Consultoria especializada...")} onChange={(v) => updateContent("home_hero", "subtitle", v)} className="text-lg md:text-xl text-gray-200 mb-6 md:mb-10 bg-transparent border-none p-0 w-full" />
+                        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-10">
                             <Button className="bg-gradient-to-r from-accent-gold to-yellow-500 text-primary-navy font-bold px-8 py-3 rounded-xl min-w-[150px]"><EditableText value={getContent("home_hero", "button1_text", "Falar com Especialista")} onChange={(v) => updateContent("home_hero", "button1_text", v)} className="bg-transparent border-none p-0 text-center" /></Button>
                             <Button variant="ghost" className="bg-white/10 backdrop-blur-md border border-white/30 text-white"><EditableText value={getContent("home_hero", "button2_text", "Ver Oportunidades")} onChange={(v) => updateContent("home_hero", "button2_text", v)} className="bg-transparent border-none p-0 text-center" /></Button>
                         </div>
                         {/* Search Mock */}
-                        <div className="bg-white rounded-xl p-6 shadow-2xl pointer-events-none opacity-100 transform-none">
+                        <div className="bg-white rounded-xl p-4 md:p-6 shadow-2xl pointer-events-none opacity-100 transform-none">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-600 flex items-center gap-2"><FileSearch className="w-4 h-4 text-accent-gold" /> Categoria</label>
