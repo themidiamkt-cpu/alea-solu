@@ -315,11 +315,11 @@ const Home = () => {
             </h2>
           </div>
 
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700 ${processReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 transition-all duration-700 ${processReveal.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {processSteps.map((step, index) => (
               <div
                 key={index}
-                className="group bg-white border-2 border-gray-100 rounded-2xl p-8 hover:border-accent-gold hover:shadow-xl transition-all duration-300"
+                className="group bg-white border-2 border-gray-100 rounded-2xl p-4 md:p-8 hover:border-accent-gold hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-16 h-16 bg-accent-gold/10 rounded-xl flex items-center justify-center text-accent-gold mb-6 group-hover:bg-accent-gold group-hover:text-white transition-colors">
                   {step.icon}
