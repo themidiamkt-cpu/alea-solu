@@ -114,7 +114,7 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
                         </div>
                         {/* Search Mock */}
                         <div className="bg-white rounded-xl p-4 md:p-6 shadow-2xl pointer-events-none opacity-100 transform-none">
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                            <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-600 flex items-center gap-2"><FileSearch className="w-4 h-4 text-accent-gold" /> Categoria</label>
                                     <div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Leilão</div>
@@ -131,7 +131,7 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
                                     <label className="text-sm font-medium text-gray-600 flex items-center gap-2"><DollarSign className="w-4 h-4 text-accent-gold" /> Valor</label>
                                     <div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Qualquer</div>
                                 </div>
-                                <div className="flex items-end">
+                                <div className="flex items-end col-span-2 lg:col-span-1">
                                     <Button className="w-full bg-accent-gold text-primary-navy font-bold py-6"><Search className="w-5 h-5 mr-2" /> Buscar</Button>
                                 </div>
                             </div>

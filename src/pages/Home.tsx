@@ -211,7 +211,7 @@ const Home = () => {
 
             {/* Search Form */}
             <div className="bg-white rounded-xl p-4 md:p-6 shadow-2xl">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
 
                 {/* Category Filter */}
                 <div className="space-y-2">
@@ -282,7 +282,7 @@ const Home = () => {
                   </select>
                 </div>
 
-                <div className="flex items-end">
+                <div className="flex items-end col-span-2 lg:col-span-1">
                   <Button
                     onClick={() => {
                       const params = new URLSearchParams();
