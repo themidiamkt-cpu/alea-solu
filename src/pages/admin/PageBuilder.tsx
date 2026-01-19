@@ -113,7 +113,29 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
                             <Button variant="ghost" className="bg-white/10 backdrop-blur-md border border-white/30 text-white"><EditableText value={getContent("home_hero", "button2_text", "Ver Oportunidades")} onChange={(v) => updateContent("home_hero", "button2_text", v)} className="bg-transparent border-none p-0 text-center" /></Button>
                         </div>
                         {/* Search Mock */}
-                        <div className="bg-white rounded-xl p-6 shadow-2xl pointer-events-none opacity-100 transform-none"><div className="grid grid-cols-1 md:grid-cols-4 gap-4"><div className="space-y-2"><label className="text-sm font-medium text-gray-600 flex items-center gap-2"><HomeIcon className="w-4 h-4 text-accent-gold" /> Tipo</label><div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Todos</div></div><div className="space-y-2"><label className="text-sm font-medium text-gray-600 flex items-center gap-2"><MapPin className="w-4 h-4 text-accent-gold" /> Local</label><div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Todas</div></div><div className="space-y-2"><label className="text-sm font-medium text-gray-600 flex items-center gap-2"><DollarSign className="w-4 h-4 text-accent-gold" /> Valor</label><div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Qualquer</div></div><div className="flex items-end"><Button className="w-full bg-accent-gold text-primary-navy font-bold py-6"><Search className="w-5 h-5 mr-2" /> Buscar</Button></div></div></div>
+                        <div className="bg-white rounded-xl p-6 shadow-2xl pointer-events-none opacity-100 transform-none">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-600 flex items-center gap-2"><FileSearch className="w-4 h-4 text-accent-gold" /> Categoria</label>
+                                    <div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Leilão</div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-600 flex items-center gap-2"><HomeIcon className="w-4 h-4 text-accent-gold" /> Tipo</label>
+                                    <div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Todos</div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-600 flex items-center gap-2"><MapPin className="w-4 h-4 text-accent-gold" /> Local</label>
+                                    <div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Todas</div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-600 flex items-center gap-2"><DollarSign className="w-4 h-4 text-accent-gold" /> Valor</label>
+                                    <div className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 flex items-center text-gray-500 text-sm">Qualquer</div>
+                                </div>
+                                <div className="flex items-end">
+                                    <Button className="w-full bg-accent-gold text-primary-navy font-bold py-6"><Search className="w-5 h-5 mr-2" /> Buscar</Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -121,7 +143,7 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
             {/* Steps & About & Grids omitted for brevity - logic remains same */}
             <section className="py-20 bg-white"><div className="container mx-auto px-6"><div className="text-center mb-16"><h2 className="text-3xl md:text-4xl font-bold text-primary-navy">Saiba como funciona</h2></div><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">{processSteps.map((step, index) => (<div key={index} className="group bg-white border-2 border-gray-100 rounded-2xl p-8 hover:border-accent-gold"><div className="w-16 h-16 bg-accent-gold/10 rounded-xl flex items-center justify-center text-accent-gold mb-6">{step.icon}</div><EditableText value={getContent(step.key, "title", step.defTitle)} onChange={(v) => updateContent(step.key, "title", v)} className="text-xl font-bold text-primary-navy mb-4 bg-transparent border-none p-0 w-full" /><EditableText value={getContent(step.key, "text", step.defDesc)} onChange={(v) => updateContent(step.key, "text", v)} multiline className="text-gray-600 bg-transparent border-none p-0 w-full" /></div>))}</div></div></section>
             {/* About */}
-            <section className="py-20 bg-gray-50"><div className="container mx-auto px-6"><div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"><EditableImage src={getContent("home_about", "image_url", "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80")} onUpload={(url) => updateContent("home_about", "image_url", url)} className="rounded-2xl shadow-2xl w-full h-auto" bucket="site" />
+            <section className="py-20 bg-gray-50"><div className="container mx-auto px-6"><div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"><EditableImage src={getContent("home_about", "image_url", "/logo.png")} onUpload={(url) => updateContent("home_about", "image_url", url)} className="rounded-2xl shadow-2xl w-full h-auto" bucket="site" />
                 <div>
                     <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Sobre Nós</span>
                     <EditableText

@@ -341,7 +341,7 @@ const Home = () => {
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent-gold/20 rounded-xl z-0" />
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary-navy/10 rounded-xl z-0" />
               <img
-                src={(aboutContent as any)?.image_url || "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80"}
+                src={(aboutContent as any)?.image_url || "/logo.png"}
                 alt="Especialista"
                 className="relative z-10 rounded-2xl shadow-2xl w-full h-auto"
               />
