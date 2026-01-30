@@ -30,7 +30,7 @@ export const Navbar = () => {
           }`}>
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <img src="/logo.png" alt="Logo" className="w-16 h-16 object-contain" />
+            <img src="/logo.jpg" alt="Logo" className="w-16 h-16 object-contain" />
             <div className="flex flex-col">
               <span className="text-xl font-serif font-semibold text-primary leading-tight">
                 {logoText?.text || "Alea"}

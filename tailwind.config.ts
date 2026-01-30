@@ -51,7 +51,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['Playfair Display', 'serif'],
+        serif: ['Alexandria', 'serif'],
         sans: ['Alexandria', 'sans-serif'],
       },
       backgroundImage: {
