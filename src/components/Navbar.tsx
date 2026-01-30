@@ -30,13 +30,13 @@ export const Navbar = () => {
           }`}>
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
+            <img src="/logo.png" alt="Logo" className="w-16 h-16 object-contain" />
             <div className="flex flex-col">
-              <span className="text-lg font-serif font-semibold text-primary leading-tight">
+              <span className="text-xl font-serif font-semibold text-primary leading-tight">
                 {logoText?.text || "Alea"}
               </span>
-              <span className="text-xs text-muted-foreground">
-                {subtitle?.text || "Leilões"}
+              <span className="text-sm text-muted-foreground font-medium">
+                {subtitle?.text || "Soluções Imobiliárias"}
               </span>
             </div>
           </Link>

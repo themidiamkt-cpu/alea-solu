@@ -27,7 +27,7 @@ export const Footer = ({ previewContent }: { previewContent?: any }) => {
                 <span className="text-lg font-serif font-semibold leading-tight">
                   {about?.title || "Alea"}
                 </span>
-                <span className="text-xs opacity-80">{about?.subtitle || "Leilões"}</span>
+                <span className="text-xs opacity-80">{about?.subtitle || "Soluções Imobiliárias"}</span>
               </div>
             </div>
             <p className="text-sm text-white/80 leading-relaxed">
