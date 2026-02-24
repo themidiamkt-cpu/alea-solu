@@ -53,7 +53,7 @@ const AdminLogin = () => {
             <Card className="w-full max-w-md bg-gray-900 border-gray-800">
                 <CardHeader className="text-center space-y-2">
                     <div className="mx-auto text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                        Alea
+                        Grupo Alea
                     </div>
                     <CardTitle className="text-xl text-gray-200">Acesso Administrativo</CardTitle>
                 </CardHeader>

@@ -89,12 +89,12 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
     const { data: imoveis } = useQuery({ queryKey: ["imoveis-home-preview"], queryFn: async () => { const { data } = await supabase.from("opportunities").select("*, opportunity_images(image_url)").eq("type", "IMOVEL").order("created_at", { ascending: false }).limit(4); return data || []; } });
 
     const processSteps = [
-        { key: 'home_step_1', icon: <FileSearch className="w-8 h-8" />, defTitle: "Identificação de Imóvel", defDesc: "Encontramos os melhores imóveis..." },
-        { key: 'home_step_2', icon: <FileCheck className="w-8 h-8" />, defTitle: "Análise do Edital", defDesc: "Avaliação completa da documentação..." },
-        { key: 'home_step_3', icon: <Eye className="w-8 h-8" />, defTitle: "Visita Técnica", defDesc: "Inspeção presencial do imóvel..." },
-        { key: 'home_step_4', icon: <Gavel className="w-8 h-8" />, defTitle: "Participação no Leilão", defDesc: "Representamos você durante todo o processo..." },
-        { key: 'home_step_5', icon: <Building2 className="w-8 h-8" />, defTitle: "Assessoria Pós-Arrematação", defDesc: "Acompanhamento jurídico completo..." },
-        { key: 'home_step_6', icon: <Key className="w-8 h-8" />, defTitle: "Entrega das Chaves", defDesc: "Garantimos a imissão na posse..." },
+        { key: 'home_step_1', icon: <FileSearch className="w-8 h-8" />, defTitle: "Identificação Estratégica de Imóveis", defDesc: "Localizamos oportunidades alinhadas ao seu perfil de investimento, analisando o potencial de valorização, riscos e viabilidade da arrematação." },
+        { key: 'home_step_2', icon: <FileCheck className="w-8 h-8" />, defTitle: "Análise Jurídica e Comercial do Leilão", defDesc: "Avaliamos o edital, a matrícula e o histórico do imóvel para identificar riscos jurídicos, débitos e custos envolvidos antes da sua decisão." },
+        { key: 'home_step_3', icon: <Eye className="w-8 h-8" />, defTitle: "Visita Técnica ao Imóvel", defDesc: "Realizamos inspeção técnica para verificar ocupação e aspectos práticos que impactam a posse e o investimento." },
+        { key: 'home_step_4', icon: <Gavel className="w-8 h-8" />, defTitle: "Participação do Leilão", defDesc: "Representamos você em todas as etapas do leilão, garantindo segurança, estratégia e conformidade com as regras do certame." },
+        { key: 'home_step_5', icon: <Building2 className="w-8 h-8" />, defTitle: "Assessoria Jurídica Pós-Arrematação", defDesc: "Cuidamos de todos os procedimentos após a arrematação, incluindo pagamentos, registros, regularizações e medidas judiciais necessárias." },
+        { key: 'home_step_6', icon: <Key className="w-8 h-8" />, defTitle: "Imissão na Posse do Imóvel", defDesc: "Atuamos para garantir a desocupação e a imissão na posse, conduzindo o processo de forma segura até a entrega efetiva do imóvel." },
     ];
 
     return (
@@ -145,14 +145,14 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
             {/* About */}
             <section className="py-20 bg-gray-50"><div className="container mx-auto px-6"><div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"><EditableImage src={getContent("home_about", "image_url", "/logo.jpg")} onUpload={(url) => updateContent("home_about", "image_url", url)} className="rounded-2xl shadow-2xl w-full h-auto" bucket="site" />
                 <div>
-                    <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Sobre Nós</span>
+                    <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Texto institucional - Grupo Alea</span>
                     <EditableText
                         value={getContent("home_about", "title", "São mais de 15 anos de experiência no mercado de leilões judiciais")}
                         onChange={v => updateContent("home_about", "title", v)}
                         className="text-3xl md:text-4xl font-bold text-primary-navy mt-2 mb-6 bg-transparent border-none p-0 w-full leading-tight"
                     />
                     <EditableText
-                        value={getContent("home_about", "text", "A Alea conta com uma equipe multidisciplinar, formada por advogados especializados, corretores credenciados e analistas de mercado. Nossa missão é proporcionar segurança jurídica e as melhores oportunidades de investimento para nossos clientes.\n\nCom uma abordagem transparente e ética, já ajudamos centenas de investidores a encontrar imóveis com até 50% de desconto em relação ao valor de mercado, transformando oportunidades em patrimônio.")}
+                        value={getContent("home_about", "text", "O Grupo Alea nasce com o propósito de integrar serviços e oferecer soluções imobiliárias completas, estratégicas e seguras, atuando de forma coordenada em todas as etapas que envolvem oportunidades no mercado imobiliário.\n\nCom sólida experiência no direito imobiliário, em leilões judiciais e extrajudiciais e em assessoria especializada, o Grupo reúne profissionais altamente qualificados para conduzir processos com visão técnica, jurídica e comercial. Nossa atuação abrange desde a identificação de oportunidades até a consolidação da posse e regularização do imóvel, sempre com foco na segurança jurídica, na eficiência operacional e na valorização do investimento.\n\nMais do que atuar em frentes isoladas, o Grupo Alea promove a união de serviços e competências, oferecendo aos clientes um ecossistema completo de soluções imobiliárias. Trabalhamos com ética, transparência, profissionalismo e excelência, proporcionando a tranquilidade necessária para decisões seguras e estratégicas no mercado imobiliário.")}
                         onChange={v => updateContent("home_about", "text", v)}
                         multiline
                         className="text-gray-600 mb-6 bg-transparent border-none p-0 w-full whitespace-pre-line leading-relaxed"
@@ -413,8 +413,8 @@ const PageBuilderContent = () => {
                                 <SectionHeader id="footer" title="Rodapé Completo" isActive={activeSection === "footer"} onToggle={toggleSection} />
                                 {activeSection === "footer" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4">
                                     <p className="text-xs text-gray-500 mb-2">Configure o rodapé visível em todas as páginas.</p>
-                                    <div className="bg-gray-800 p-2 rounded mb-2"><p className="text-accent-gold text-xs font-bold mb-1">SOBRE</p><FieldInput label="Título" contentKey="footer_about" field="title" defaultValue="Alea" /><FieldInput label="Subtítulo" contentKey="footer_about" field="subtitle" defaultValue="Soluções Imobiliárias" /><FieldInput label="Texto" contentKey="footer_about" field="text" defaultValue="..." multiline /></div>
-                                    <div className="bg-gray-800 p-2 rounded mb-2"><p className="text-accent-gold text-xs font-bold mb-1">CONTATO</p><FieldInput label="Telefone" contentKey="footer_contact" field="text" defaultValue="(11) ..." /><FieldInput label="Email" contentKey="footer_contact" field="subtitle" defaultValue="contato@..." /><FieldInput label="Endereço" contentKey="footer_contact" field="title" defaultValue="São Paulo - SP" /></div>
+                                    <div className="bg-gray-800 p-2 rounded mb-2"><p className="text-accent-gold text-xs font-bold mb-1">SOBRE</p><FieldInput label="Título" contentKey="footer_about" field="title" defaultValue="Grupo Alea Leilões" /><FieldInput label="Subtítulo" contentKey="footer_about" field="subtitle" defaultValue="Soluções Imobiliárias" /><FieldInput label="Texto" contentKey="footer_about" field="text" defaultValue="..." multiline /></div>
+                                    <div className="bg-gray-800 p-2 rounded mb-2"><p className="text-accent-gold text-xs font-bold mb-1">CONTATO</p><FieldInput label="Telefone" contentKey="footer_contact" field="text" defaultValue="(11) ..." /><FieldInput label="Email" contentKey="footer_contact" field="subtitle" defaultValue="contato@grupoalea.com.br" /><FieldInput label="Endereço" contentKey="footer_contact" field="title" defaultValue="São Paulo - SP" /></div>
                                     <div className="bg-gray-800 p-2 rounded"><p className="text-accent-gold text-xs font-bold mb-1">REDES SOCIAIS (Links)</p><FieldInput label="Facebook" contentKey="footer_social" field="text" defaultValue="#" /><FieldInput label="Instagram" contentKey="footer_social" field="subtitle" defaultValue="#" /><FieldInput label="LinkedIn" contentKey="footer_social" field="title" defaultValue="#" /></div>
                                 </div>}
                             </>

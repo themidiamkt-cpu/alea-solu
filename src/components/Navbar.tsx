@@ -8,8 +8,6 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const { data: logoText } = useSiteContent("nav_logo_text");
-  const { data: subtitle } = useSiteContent("nav_subtitle");
   const { data: contactBtn } = useSiteContent("nav_contact_btn");
 
   useEffect(() => {
@@ -29,16 +27,12 @@ export const Navbar = () => {
         <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "h-16" : "h-20"
           }`}>
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <img src="/logo.jpg" alt="Logo" className="w-16 h-16 object-contain" />
-            <div className="flex flex-col">
-              <span className="text-xl font-serif font-semibold text-primary leading-tight">
-                {logoText?.text || "Alea"}
-              </span>
-              <span className="text-sm text-muted-foreground font-medium">
-                {subtitle?.text || "Soluções Imobiliárias"}
-              </span>
-            </div>
+          <Link to="/" className="group">
+            <img
+              src="/grupo-alea-logo-horizontal.svg"
+              alt="Grupo Alea"
+              className={`${scrolled ? "h-10" : "h-12"} w-auto object-contain transition-all duration-300`}
+            />
           </Link>
 
           {/* Desktop Menu */}

@@ -14,6 +14,13 @@ const Contato = () => {
   const { data: info } = useSiteContent("contact_info");
   const { data: formContent } = useSiteContent("contact_form");
   const { data: homeCta } = useSiteContent("home_cta"); // For Webhook URL
+  const normalizeEmail = (value: string, fallback: string) => {
+    const trimmed = value.trim();
+    if (!trimmed) return fallback;
+    if (/alealeiloes/i.test(trimmed)) return "contato@grupoalea.com.br";
+    return trimmed;
+  };
+  const displayContactEmail = normalizeEmail((info as any)?.email || "", "contato@grupoalea.com.br");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -122,7 +129,7 @@ const Contato = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-primary mb-1">E-mail</h3>
-                    <p className="text-muted-foreground whitespace-pre-line">{(info as any)?.email || "contato@grupoalea.com.br"}</p>
+                    <p className="text-muted-foreground whitespace-pre-line">{displayContactEmail}</p>
                   </div>
                 </div>
 

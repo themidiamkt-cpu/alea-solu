@@ -53,6 +53,7 @@ export default {
       fontFamily: {
         serif: ['Alexandria', 'serif'],
         sans: ['Alexandria', 'sans-serif'],
+        mono: ['Alexandria', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',

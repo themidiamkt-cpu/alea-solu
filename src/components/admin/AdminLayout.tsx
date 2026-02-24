@@ -82,7 +82,7 @@ const AdminLayout = () => {
                 <div className="h-full flex flex-col">
                     <div className="p-6 border-b border-gray-800">
                         <h1 className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                            Alea
+                            Grupo Alea
                         </h1>
                         <p className="text-xs text-gray-500 mt-1">Painel Administrativo</p>
                     </div>

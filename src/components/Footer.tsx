@@ -14,6 +14,23 @@ export const Footer = ({ previewContent }: { previewContent?: any }) => {
   const contact = previewContent?.footer_contact || footerContact;
   const social = previewContent?.footer_social || footerSocial;
   const copyright = previewContent?.footer_copyright || footerCopyright;
+  const normalizeGroupName = (value: string, fallback: string) => {
+    const trimmed = value.trim();
+    if (!trimmed) return fallback;
+    if (/^\s*grupo\b/i.test(trimmed)) return trimmed;
+    if (/alea/i.test(trimmed)) return `Grupo ${trimmed}`;
+    return trimmed;
+  };
+  const aboutTitleValue = (about?.title || "");
+  const displayAboutTitle = normalizeGroupName(aboutTitleValue, "Grupo Alea Leilões");
+  const normalizeEmail = (value: string, fallback: string) => {
+    const trimmed = value.trim();
+    if (!trimmed) return fallback;
+    if (/alealeiloes/i.test(trimmed)) return "contato@grupoalea.com.br";
+    return trimmed;
+  };
+  const contactEmailValue = (contact?.subtitle || "");
+  const displayContactEmail = normalizeEmail(contactEmailValue, "contato@grupoalea.com.br");
 
   return (
     <footer className="bg-primary text-white">
@@ -22,12 +39,11 @@ export const Footer = ({ previewContent }: { previewContent?: any }) => {
           {/* About */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <img src="/logo.jpg" alt="Logo" className="w-10 h-10 object-contain rounded-md" />
-              <div className="flex flex-col">
+              <img src="/favicon.svg" alt="Grupo Alea" className="w-10 h-10 object-contain rounded-md" />
+              <div>
                 <span className="text-lg font-serif font-semibold leading-tight">
-                  {about?.title || "Alea"}
+                  {displayAboutTitle}
                 </span>
-                <span className="text-xs opacity-80">{about?.subtitle || "Soluções Imobiliárias"}</span>
               </div>
             </div>
             <p className="text-sm text-white/80 leading-relaxed">
@@ -88,7 +104,7 @@ export const Footer = ({ previewContent }: { previewContent?: any }) => {
               </li>
               <li className="flex items-start space-x-3">
                 <Mail size={16} className="mt-1 flex-shrink-0" />
-                <span className="text-sm text-white/80">{contact?.subtitle || "contato@grupoalea.com.br"}</span>
+                <span className="text-sm text-white/80">{displayContactEmail}</span>
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin size={16} className="mt-1 flex-shrink-0" />
@@ -113,7 +129,7 @@ export const Footer = ({ previewContent }: { previewContent?: any }) => {
 
         <div className="border-t border-white/10 mt-8 pt-8 text-center">
           <p className="text-sm text-white/60">
-            {copyright?.text || `© ${new Date().getFullYear()} Alea. Todos os direitos reservados.`}
+            {copyright?.text || `© ${new Date().getFullYear()} Grupo Alea. Todos os direitos reservados.`}
           </p>
         </div>
       </div>

@@ -81,7 +81,7 @@ const Blog = () => {
                         <div className="flex items-center gap-3 text-sm text-gray-500 mb-4">
                           <div className="flex items-center gap-1 text-accent-gold font-semibold">
                             <span className="w-5 h-5 rounded-full bg-accent-gold/20 flex items-center justify-center text-xs">A</span>
-                            Alea
+                            Grupo Alea
                           </div>
                         </div>
 

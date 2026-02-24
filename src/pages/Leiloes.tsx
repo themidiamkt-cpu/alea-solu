@@ -59,19 +59,34 @@ const Leiloes = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden mt-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80')",
-          }}
-        >
-          <div className="absolute inset-0 hero-overlay"></div>
+      <section className="relative h-[56vh] md:h-[64vh] flex items-center justify-center overflow-hidden mt-20">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&q=80"
+            alt="Cidade"
+            className="w-full h-full object-cover grayscale brightness-125 contrast-90"
+          />
+          <div className="absolute inset-0 bg-white/55" />
         </div>
-        <div className="relative z-10 text-center text-white animate-fade-in">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4">Leilões</h1>
-          <p className="text-xl text-white/90">Encontre as melhores oportunidades</p>
+
+        <div className="relative z-10 w-[min(92vw,950px)] px-4 animate-fade-in">
+          <h1 className="sr-only">Leilões</h1>
+          <div className="relative bg-[#2f6f85] rounded-[24px] md:rounded-[30px] shadow-2xl overflow-hidden min-h-[160px] md:min-h-[220px] flex items-center justify-center">
+            <img
+              src="/logo.png"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover opacity-30"
+            />
+            <div className="relative px-6 md:px-10 py-8 md:py-10 flex items-end justify-center gap-3 md:gap-5 text-white">
+              <span className="text-[44px] md:text-[110px] leading-none font-light tracking-[0.08em]">
+                ALEA
+              </span>
+              <span className="text-[30px] md:text-[64px] leading-none font-light tracking-[0.2em]">
+                Leilões
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 

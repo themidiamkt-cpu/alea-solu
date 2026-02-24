@@ -1,0 +1,8 @@
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="1200" height="1200" rx="36" fill="#241E46"/>
+
+  <path d="M70 810L165 715V400H335V540L600 300L1130 790" stroke="#F2F4F6" stroke-width="20" fill="none" stroke-linecap="square" stroke-linejoin="miter"/>
+
+  <text x="130" y="310" fill="#F2F4F6" font-family="Alexandria, sans-serif" font-size="92" font-weight="300" letter-spacing="0.14em">Grupo</text>
+  <text x="130" y="1100" fill="#F2F4F6" font-family="Alexandria, sans-serif" font-size="235" font-weight="300" letter-spacing="0.06em">ALEA</text>
+</svg>

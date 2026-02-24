@@ -77,9 +77,14 @@ const Home = () => {
   const { data: ctaContent } = useSiteContent("home_cta");
 
   // Counter animations
-  const stats1Value = (stats1 as any)?.number ? parseInt((stats1 as any).number) : 12;
-  const stats2Value = (stats2 as any)?.number ? parseInt((stats2 as any).number) : 500;
-  const stats3Value = (stats3 as any)?.number ? parseInt((stats3 as any).number) : 98;
+  const parseStatValue = (value: unknown, fallback: number) => {
+    const parsed = typeof value === "number" ? value : Number.parseInt(String(value), 10);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+  };
+
+  const stats1Value = parseStatValue((stats1 as any)?.number, 12);
+  const stats2Value = parseStatValue((stats2 as any)?.number, 500);
+  const stats3Value = parseStatValue((stats3 as any)?.number, 98);
 
   const yearsCount = useCounterAnimation(stats1Value, 2000, aboutReveal.isVisible);
   const propertiesCount = useCounterAnimation(stats2Value, 2500, aboutReveal.isVisible);
@@ -136,33 +141,33 @@ const Home = () => {
   const processSteps = [
     {
       icon: <FileSearch className="w-8 h-8" />,
-      title: "Identificação de Imóvel",
-      description: "Encontramos os melhores imóveis em leilão com potencial de valorização e adequados ao seu perfil de investimento.",
+      title: "Identificação Estratégica de Imóveis",
+      description: "Localizamos oportunidades alinhadas ao seu perfil de investimento, analisando o potencial de valorização, riscos e viabilidade da arrematação.",
     },
     {
       icon: <FileCheck className="w-8 h-8" />,
-      title: "Análise do Edital",
-      description: "Avaliação completa da documentação, condições do leilão e possíveis riscos para garantir uma arrematação segura.",
+      title: "Análise Jurídica e Comercial do Leilão",
+      description: "Avaliamos o edital, a matrícula e o histórico do imóvel para identificar riscos jurídicos, débitos e custos envolvidos antes da sua decisão.",
     },
     {
       icon: <Eye className="w-8 h-8" />,
-      title: "Visita Técnica",
-      description: "Inspeção presencial do imóvel para avaliar condições físicas e verificar ocupação antes da arrematação.",
+      title: "Visita Técnica ao Imóvel",
+      description: "Realizamos inspeção técnica para verificar ocupação e aspectos práticos que impactam a posse e o investimento.",
     },
     {
       icon: <Gavel className="w-8 h-8" />,
-      title: "Participação no Leilão",
-      description: "Representamos você durante todo o processo de leilão, com estratégias para maximizar suas chances.",
+      title: "Participação do Leilão",
+      description: "Representamos você em todas as etapas do leilão, garantindo segurança, estratégia e conformidade com as regras do certame.",
     },
     {
       icon: <Building2 className="w-8 h-8" />,
-      title: "Assessoria Pós-Arrematação",
-      description: "Acompanhamento jurídico completo após a arrematação, incluindo registro e resolução de pendências.",
+      title: "Assessoria Jurídica Pós-Arrematação",
+      description: "Cuidamos de todos os procedimentos após a arrematação, incluindo pagamentos, registros, regularizações e medidas judiciais necessárias.",
     },
     {
       icon: <Key className="w-8 h-8" />,
-      title: "Entrega das Chaves",
-      description: "Garantimos a imissão na posse do imóvel, cuidando de toda a parte legal para você receber as chaves.",
+      title: "Imissão na Posse do Imóvel",
+      description: "Atuamos para garantir a desocupação e a imissão na posse, conduzindo o processo de forma segura até a entrega efetiva do imóvel.",
     },
   ];
 
@@ -341,23 +346,23 @@ const Home = () => {
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent-gold/20 rounded-xl z-0" />
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary-navy/10 rounded-xl z-0" />
               <img
-                src={(aboutContent as any)?.image_url || "/logo.jpg"}
-                alt="Especialista"
+                src="/sobre-grupo-alea.svg"
+                alt="Grupo Alea"
                 className="relative z-10 rounded-2xl shadow-2xl w-full h-auto"
               />
             </div>
 
             {/* Text Side */}
             <div>
-              <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Sobre Nós</span>
+              <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Texto institucional - Grupo Alea</span>
               <h2 className="text-3xl md:text-4xl font-bold text-primary-navy mt-2 mb-6">
                 São mais de <span className="text-accent-gold">{yearsCount} anos</span> de experiência no mercado de leilões judiciais
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                {(aboutContent as any)?.text || "A Alea conta com uma equipe multidisciplinar, formada por advogados especializados, corretores credenciados e analistas de mercado. Nossa missão é proporcionar segurança jurídica e as melhores oportunidades de investimento para nossos clientes."}
+                {(aboutContent as any)?.text || "O Grupo Alea nasce com o propósito de integrar serviços e oferecer soluções imobiliárias completas, estratégicas e seguras, atuando de forma coordenada em todas as etapas que envolvem oportunidades no mercado imobiliário."}
               </p>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Com uma abordagem transparente e ética, já ajudamos centenas de investidores a encontrar imóveis com até 50% de desconto em relação ao valor de mercado, transformando leilões em oportunidades únicas de patrimônio.
+                Com sólida experiência no direito imobiliário, em leilões judiciais e extrajudiciais e em assessoria especializada, o Grupo reúne profissionais altamente qualificados para conduzir processos com visão técnica, jurídica e comercial. Nossa atuação abrange desde a identificação de oportunidades até a consolidação da posse e regularização do imóvel, sempre com foco na segurança jurídica, na eficiência operacional e na valorização do investimento. Mais do que atuar em frentes isoladas, o Grupo Alea promove a união de serviços e competências, oferecendo aos clientes um ecossistema completo de soluções imobiliárias. Trabalhamos com ética, transparência, profissionalismo e excelência, proporcionando a tranquilidade necessária para decisões seguras e estratégicas no mercado imobiliário.
               </p>
 
               {/* Stats */}
@@ -579,7 +584,7 @@ const Home = () => {
                   {blogPosts[0].title}
                 </h3>
                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                  <span className="text-accent-gold font-semibold">Alea Soluções Imobiliárias</span>
+                  <span className="text-accent-gold font-semibold">Grupo Alea Soluções Imobiliárias</span>
                 </div>
                 <p className="text-gray-600 line-clamp-2">
                   {blogPosts[0].content?.substring(0, 150)}...
@@ -655,7 +660,7 @@ const Home = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email</p>
-                    <p className="font-semibold">contato@alealeiloes.com.br</p>
+                    <p className="font-semibold">contato@grupoalea.com.br</p>
                   </div>
                 </div>
               </div>
