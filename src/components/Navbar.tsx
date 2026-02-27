@@ -29,7 +29,7 @@ export const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="group">
             <img
-              src="/grupo-alea-logo-horizontal.svg"
+              src="/logo/logo-horizontal-grupo.png"
               alt="Grupo Alea"
               className={`${scrolled ? "h-10" : "h-12"} w-auto object-contain transition-all duration-300`}
             />

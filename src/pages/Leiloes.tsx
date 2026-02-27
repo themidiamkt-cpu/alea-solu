@@ -2,15 +2,13 @@ import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, Filter } from "lucide-react";
 
 const Leiloes = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [filters, setFilters] = useState({
     search: searchParams.get("search") || "",
     city: searchParams.get("city") || "",
@@ -59,34 +57,14 @@ const Leiloes = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-[56vh] md:h-[64vh] flex items-center justify-center overflow-hidden mt-20">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&q=80"
-            alt="Cidade"
-            className="w-full h-full object-cover grayscale brightness-125 contrast-90"
-          />
-          <div className="absolute inset-0 bg-white/55" />
-        </div>
-
-        <div className="relative z-10 w-[min(92vw,950px)] px-4 animate-fade-in">
+      <section className="mt-20 bg-[#f6f6f7] py-8 md:py-12">
+        <div className="container mx-auto px-4">
           <h1 className="sr-only">Leilões</h1>
-          <div className="relative bg-[#2f6f85] rounded-[24px] md:rounded-[30px] shadow-2xl overflow-hidden min-h-[160px] md:min-h-[220px] flex items-center justify-center">
-            <img
-              src="/logo.png"
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 w-full h-full object-cover opacity-30"
-            />
-            <div className="relative px-6 md:px-10 py-8 md:py-10 flex items-end justify-center gap-3 md:gap-5 text-white">
-              <span className="text-[44px] md:text-[110px] leading-none font-light tracking-[0.08em]">
-                ALEA
-              </span>
-              <span className="text-[30px] md:text-[64px] leading-none font-light tracking-[0.2em]">
-                Leilões
-              </span>
-            </div>
-          </div>
+          <img
+            src="/logo/banner-leiloes.png"
+            alt="Banner Leilões"
+            className="w-full max-w-5xl mx-auto rounded-2xl shadow-xl object-contain"
+          />
         </div>
       </section>
 

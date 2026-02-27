@@ -39,7 +39,7 @@ export const Footer = ({ previewContent }: { previewContent?: any }) => {
           {/* About */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <img src="/favicon.svg" alt="Grupo Alea" className="w-10 h-10 object-contain rounded-md" />
+              <img src="/logo/logo-quadrado-grupo.png" alt="Grupo Alea" className="w-14 h-14 object-contain rounded-md" />
               <div>
                 <span className="text-lg font-serif font-semibold leading-tight">
                   {displayAboutTitle}
