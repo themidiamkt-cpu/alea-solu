@@ -25,6 +25,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useCounterAnimation } from "@/hooks/useCounterAnimation";
 import { useSiteContent } from "@/hooks/useSiteContent";
+
+const DEFAULT_WEBHOOK_URL = "https://automacao2.themidiamarketing.com.br/webhook/form-alea";
 import { useState, useEffect } from "react";
 import { TeamList } from "@/components/TeamList";
 
@@ -69,12 +71,13 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("Leilão");
 
 
-  const { data: heroContent } = useSiteContent("home_hero");
+  const { data: heroContent, isFetched: isHeroContentFetched } = useSiteContent("home_hero");
   const { data: aboutContent } = useSiteContent("home_about");
   const { data: stats1 } = useSiteContent("home_stats_1");
   const { data: stats2 } = useSiteContent("home_stats_2");
   const { data: stats3 } = useSiteContent("home_stats_3");
   const { data: ctaContent } = useSiteContent("home_cta");
+  const heroData = heroContent as any;
 
   // Counter animations
   const parseStatValue = (value: unknown, fallback: number) => {
@@ -176,11 +179,11 @@ const Home = () => {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden pt-28 md:pt-0">
+      <section className="relative min-h-[85vh] flex items-start md:items-center overflow-x-hidden pt-32 md:pt-36 lg:pt-40">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src={(heroContent as any)?.image_url || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80"}
+            src={heroData?.image_url || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80"}
             alt="Hero"
             className="w-full h-full object-cover"
           />
@@ -188,31 +191,45 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-6 relative z-10 pb-8">
           <div className="max-w-2xl">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
-              {(heroContent as any)?.title || "Encontre um imóvel de leilão para você investir!"}
-            </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-6 md:mb-10">
-              {(heroContent as any)?.subtitle || "Consultoria especializada em leilões judiciais e extrajudiciais"}
-            </p>
+            {isHeroContentFetched ? (
+              <>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
+                  {heroData?.title || "Encontre um imóvel de leilão para você investir!"}
+                </h1>
+                <p className="text-lg md:text-xl text-gray-200 mb-6 md:mb-10">
+                  {heroData?.subtitle || "Consultoria especializada em leilões judiciais e extrajudiciais"}
+                </p>
 
-            {/* Hero Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-10">
-              <Button
-                onClick={() => handleNavigation((heroContent as any)?.button1_url || "https://wa.me/")}
-                className="bg-gradient-to-r from-accent-gold to-yellow-500 hover:from-yellow-400 hover:to-accent-gold text-primary-navy font-bold px-8 py-3 rounded-xl min-w-[150px] shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/40 transition-all transform hover:-translate-y-1"
-              >
-                {(heroContent as any)?.button1_text || "Falar com Especialista"}
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => handleNavigation((heroContent as any)?.button2_url || "/leiloes")}
-                className="bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white hover:text-primary-navy font-semibold px-8 py-3 rounded-xl min-w-[150px] transition-all"
-              >
-                {(heroContent as any)?.button2_text || "Ver Oportunidades"}
-              </Button>
-            </div>
+                {/* Hero Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-10">
+                  <Button
+                    onClick={() => handleNavigation(heroData?.button1_url || "https://wa.me/")}
+                    className="bg-gradient-to-r from-accent-gold to-yellow-500 hover:from-yellow-400 hover:to-accent-gold text-primary-navy font-bold px-8 py-3 rounded-xl min-w-[150px] shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/40 transition-all transform hover:-translate-y-1"
+                  >
+                    {heroData?.button1_text || "Falar com Especialista"}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => handleNavigation(heroData?.button2_url || "/leiloes")}
+                    className="bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white hover:text-primary-navy font-semibold px-8 py-3 rounded-xl min-w-[150px] transition-all"
+                  >
+                    {heroData?.button2_text || "Ver Oportunidades"}
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <div className="mb-8 md:mb-10 space-y-4 md:space-y-6">
+                <div className="h-12 md:h-16 w-11/12 bg-white/20 rounded-lg animate-pulse" />
+                <div className="h-12 md:h-16 w-8/12 bg-white/20 rounded-lg animate-pulse" />
+                <div className="h-6 w-9/12 bg-white/20 rounded-lg animate-pulse" />
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2">
+                  <div className="h-12 w-52 bg-white/20 rounded-xl animate-pulse" />
+                  <div className="h-12 w-52 bg-white/20 rounded-xl animate-pulse" />
+                </div>
+              </div>
+            )}
 
             {/* Search Form */}
             <div className="bg-white rounded-xl p-4 md:p-6 shadow-2xl">
@@ -316,7 +333,7 @@ const Home = () => {
           <div className="text-center mb-16">
             <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Processo</span>
             <h2 className="text-3xl md:text-4xl font-bold text-primary-navy mt-2">
-              Saiba como funciona nossa Consultoria Jurídica em Leilão
+              Saiba como funciona nossa Consultoria Jurídica.
             </h2>
           </div>
 
@@ -354,7 +371,7 @@ const Home = () => {
 
             {/* Text Side */}
             <div>
-              <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Texto institucional - Grupo Alea</span>
+              <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Sobre - Grupo Alea</span>
               <h2 className="text-3xl md:text-4xl font-bold text-primary-navy mt-2 mb-6">
                 São mais de <span className="text-accent-gold">{yearsCount} anos</span> de experiência no mercado de leilões judiciais
               </h2>
@@ -681,19 +698,17 @@ const Home = () => {
                   timestamp: new Date().toISOString()
                 };
 
-                const webhookUrl = (ctaContent as any)?.webhook_url;
+                const webhookUrl = DEFAULT_WEBHOOK_URL;
 
-                if (webhookUrl) {
-                  try {
-                    await fetch(webhookUrl, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(data)
-                    });
-                    alert('Dados enviados com sucesso!');
-                  } catch (error) {
-                    console.error('Webhook error:', error);
-                  }
+                try {
+                  await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                  });
+                  alert('Dados enviados com sucesso!');
+                } catch (error) {
+                  console.error('Webhook error:', error);
                 }
                 navigate('/contato');
               }}>

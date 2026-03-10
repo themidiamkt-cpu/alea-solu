@@ -72,14 +72,16 @@ const Imobiliaria = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="mt-20 bg-[#f6f6f7] py-8 md:py-12">
+      <section className="mt-20 bg-[#f6f6f7] py-6 md:py-8">
         <div className="container mx-auto px-4">
           <h1 className="sr-only">Imobiliária</h1>
-          <img
-            src="/logo/banner-imoveis.png"
-            alt="Banner Imóveis"
-            className="w-full max-w-5xl mx-auto rounded-2xl shadow-xl object-contain"
-          />
+          <div className="w-full max-w-6xl mx-auto h-[170px] sm:h-[210px] md:h-[250px] lg:h-[280px] overflow-hidden rounded-2xl shadow-xl">
+            <img
+              src="/logo/banner-imoveis.png"
+              alt="Banner Imóveis"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
         </div>
       </section>
 

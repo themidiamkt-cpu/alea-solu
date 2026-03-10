@@ -20,10 +20,13 @@ export const useCounterAnimation = (end: number, duration: number = 2000, isVisi
       if (!startTime) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
 
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      // For small totals (e.g. 12 anos), linear avoids the last number "holding" too long.
+      const easedProgress =
+        end <= 30
+          ? progress
+          : 1 - Math.pow(1 - progress, 4);
 
-      setCount(Math.floor(easeOutQuart * (end - startValue) + startValue));
+      setCount(Math.floor(easedProgress * (end - startValue) + startValue));
 
       if (progress < 1) {
         requestAnimationFrame(animate);

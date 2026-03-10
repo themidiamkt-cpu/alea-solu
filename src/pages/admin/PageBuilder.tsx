@@ -145,7 +145,7 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
             {/* About */}
             <section className="py-20 bg-gray-50"><div className="container mx-auto px-6"><div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"><EditableImage src={getContent("home_about", "image_url", "/logo.jpg")} onUpload={(url) => updateContent("home_about", "image_url", url)} className="rounded-2xl shadow-2xl w-full h-auto" bucket="site" />
                 <div>
-                    <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Texto institucional - Grupo Alea</span>
+                    <span className="text-accent-gold font-semibold uppercase tracking-wider text-sm">Sobre - Grupo Alea</span>
                     <EditableText
                         value={getContent("home_about", "title", "São mais de 15 anos de experiência no mercado de leilões judiciais")}
                         onChange={v => updateContent("home_about", "title", v)}
@@ -407,7 +407,7 @@ const PageBuilderContent = () => {
                                     <FieldInput label="Título" contentKey="home_cta" field="title" defaultValue="" />
                                     <FieldInput label="Texto" contentKey="home_cta" field="text" defaultValue="" multiline />
                                     <FieldInput label="Botão (Texto)" contentKey="home_cta" field="button_text" defaultValue="Falar Conosco" />
-                                    <FieldInput label="Webhook URL (N8N/Make)" contentKey="home_cta" field="webhook_url" defaultValue="" />
+                                    <FieldInput label="Webhook URL (N8N/Make)" contentKey="home_cta" field="webhook_url" defaultValue="https://automacao2.themidiamarketing.com.br/webhook/form-alea" />
                                     <FieldImage label="Fundo" contentKey="home_cta" field="image_url" defaultValue="" />
                                 </div>}
                                 <SectionHeader id="footer" title="Rodapé Completo" isActive={activeSection === "footer"} onToggle={toggleSection} />
@@ -444,7 +444,7 @@ const PageBuilderContent = () => {
                                 {activeSection === "c_form" && <div className="pl-2 pr-2 pb-4 border-l-2 border-gray-800 ml-2 space-y-4">
                                     <FieldInput label="Título do Form" contentKey="contact_form" field="title" defaultValue="" />
                                     <p className="text-xs text-yellow-500 mb-2">Este formulário compartilha a mesma URL de Webhook da Home Page.</p>
-                                    <FieldInput label="Webhook URL (N8N/Make)" contentKey="home_cta" field="webhook_url" defaultValue="" />
+                                    <FieldInput label="Webhook URL (N8N/Make)" contentKey="home_cta" field="webhook_url" defaultValue="https://automacao2.themidiamarketing.com.br/webhook/form-alea" />
                                 </div>}
                             </>
                         )}

@@ -8,12 +8,13 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
+const DEFAULT_WEBHOOK_URL = "https://automacao2.themidiamarketing.com.br/webhook/form-alea";
+
 const Contato = () => {
   const { toast } = useToast();
   const { data: hero } = useSiteContent("contact_hero");
   const { data: info } = useSiteContent("contact_info");
   const { data: formContent } = useSiteContent("contact_form");
-  const { data: homeCta } = useSiteContent("home_cta"); // For Webhook URL
   const normalizeEmail = (value: string, fallback: string) => {
     const trimmed = value.trim();
     if (!trimmed) return fallback;
@@ -34,37 +35,28 @@ const Contato = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const webhookUrl = (homeCta as any)?.webhook_url;
+    const webhookUrl = DEFAULT_WEBHOOK_URL;
 
-    if (webhookUrl) {
-      try {
-        await fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...formData,
-            source: 'contact_page',
-            timestamp: new Date().toISOString()
-          })
-        });
-        toast({
-          title: "Mensagem enviada!",
-          description: "Recebemos seu contato com sucesso.",
-        });
-      } catch (error) {
-        console.error("Webhook error:", error);
-        toast({
-          title: "Erro ao enviar",
-          description: "Tente novamente mais tarde.",
-          variant: "destructive"
-        });
-      }
-    } else {
-      // Fallback simulation
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          source: 'contact_page',
+          timestamp: new Date().toISOString()
+        })
+      });
       toast({
         title: "Mensagem enviada!",
-        description: "Entraremos em contato em breve.",
+        description: "Recebemos seu contato com sucesso.",
+      });
+    } catch (error) {
+      console.error("Webhook error:", error);
+      toast({
+        title: "Erro ao enviar",
+        description: "Tente novamente mais tarde.",
+        variant: "destructive"
       });
     }
 
