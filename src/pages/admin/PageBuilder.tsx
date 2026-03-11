@@ -85,8 +85,32 @@ const HomePreview = ({ contents, updateContent }: { contents: any, updateContent
     const getContent = (key: string, field: string, defaultVal: string = "") => contents[key]?.[field] || defaultVal;
 
     // FETCH REAL DATA
-    const { data: leiloes } = useQuery({ queryKey: ["leiloes-home-preview"], queryFn: async () => { const { data } = await supabase.from("opportunities").select("*, opportunity_images(image_url)").eq("type", "LEILAO").order("created_at", { ascending: false }).limit(4); return data || []; } });
-    const { data: imoveis } = useQuery({ queryKey: ["imoveis-home-preview"], queryFn: async () => { const { data } = await supabase.from("opportunities").select("*, opportunity_images(image_url)").eq("type", "IMOVEL").order("created_at", { ascending: false }).limit(4); return data || []; } });
+    const { data: leiloes } = useQuery({
+        queryKey: ["leiloes-home-preview"],
+        queryFn: async () => {
+            const { data } = await supabase
+                .from("opportunities")
+                .select("*, opportunity_images(image_url)")
+                .eq("type", "LEILAO")
+                .order("created_at", { ascending: false })
+                .order("created_at", { referencedTable: "opportunity_images", ascending: true })
+                .limit(4);
+            return data || [];
+        }
+    });
+    const { data: imoveis } = useQuery({
+        queryKey: ["imoveis-home-preview"],
+        queryFn: async () => {
+            const { data } = await supabase
+                .from("opportunities")
+                .select("*, opportunity_images(image_url)")
+                .eq("type", "IMOVEL")
+                .order("created_at", { ascending: false })
+                .order("created_at", { referencedTable: "opportunity_images", ascending: true })
+                .limit(4);
+            return data || [];
+        }
+    });
 
     const processSteps = [
         { key: 'home_step_1', icon: <FileSearch className="w-8 h-8" />, defTitle: "Identificação Estratégica de Imóveis", defDesc: "Localizamos oportunidades alinhadas ao seu perfil de investimento, analisando o potencial de valorização, riscos e viabilidade da arrematação." },

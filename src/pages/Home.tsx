@@ -102,6 +102,7 @@ const Home = () => {
         .select("*, opportunity_images(image_url)")
         .eq("type", "LEILAO")
         .order("created_at", { ascending: false })
+        .order("created_at", { referencedTable: "opportunity_images", ascending: true })
         .limit(4);
 
       if (error) throw error;
@@ -118,6 +119,7 @@ const Home = () => {
         .select("*, opportunity_images(image_url)")
         .eq("type", "IMOVEL")
         .order("created_at", { ascending: false })
+        .order("created_at", { referencedTable: "opportunity_images", ascending: true })
         .limit(4);
 
       if (error) throw error;

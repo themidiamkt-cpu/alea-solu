@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowLeft, Upload, X, Home, DollarSign, Calendar, MapPin, Bed, Bath, Car, Ruler } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, Upload, X, Home, DollarSign, Calendar, MapPin, Bed, Bath, Car, Ruler } from "lucide-react";
 
 const LeilaoForm = () => {
     const { id } = useParams();
@@ -80,7 +80,8 @@ const LeilaoForm = () => {
             const { data: imagesData } = await supabase
                 .from("opportunity_images")
                 .select("image_url")
-                .eq("opportunity_id", id);
+                .eq("opportunity_id", id)
+                .order("created_at", { ascending: true });
 
             if (imagesData) {
                 setImages(imagesData.map(img => img.image_url));
@@ -136,6 +137,18 @@ const LeilaoForm = () => {
 
         setImages((prev) => [...prev, ...newImages]);
         setUploading(false);
+    };
+
+    const moveImage = (index: number, direction: "up" | "down") => {
+        setImages((prev) => {
+            const targetIndex = direction === "up" ? index - 1 : index + 1;
+            if (targetIndex < 0 || targetIndex >= prev.length) return prev;
+
+            const next = [...prev];
+            const [moved] = next.splice(index, 1);
+            next.splice(targetIndex, 0, moved);
+            return next;
+        });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -442,14 +455,39 @@ const LeilaoForm = () => {
 
                         <div className="space-y-2">
                             <Label className="text-gray-300">Galeria de Imagens</Label>
+                            <p className="text-xs text-gray-500">A primeira imagem será a capa. Use as setas para ordenar.</p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {images.map((url, index) => (
                                     <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-gray-700 group">
                                         <img src={url} alt={`Preview ${index}`} className="w-full h-full object-cover" />
+                                        <span className="absolute top-2 left-2 px-2 py-1 text-xs font-bold rounded bg-black/70 text-white">
+                                            {index + 1}
+                                        </span>
+                                        <div className="absolute bottom-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                type="button"
+                                                onClick={() => moveImage(index, "up")}
+                                                disabled={index === 0}
+                                                className="p-1 bg-gray-900/90 rounded disabled:opacity-40"
+                                                title="Mover para cima"
+                                            >
+                                                <ArrowUp className="h-4 w-4 text-white" />
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => moveImage(index, "down")}
+                                                disabled={index === images.length - 1}
+                                                className="p-1 bg-gray-900/90 rounded disabled:opacity-40"
+                                                title="Mover para baixo"
+                                            >
+                                                <ArrowDown className="h-4 w-4 text-white" />
+                                            </button>
+                                        </div>
                                         <button
                                             type="button"
                                             onClick={() => setImages(prev => prev.filter((_, i) => i !== index))}
                                             className="absolute top-2 right-2 p-1 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                            title="Remover imagem"
                                         >
                                             <X className="h-4 w-4 text-white" />
                                         </button>

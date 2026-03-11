@@ -27,7 +27,8 @@ const Imobiliaria = () => {
         .from("opportunities")
         .select("*, opportunity_images(image_url)")
         .eq("type", "IMOVEL")
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .order("created_at", { referencedTable: "opportunity_images", ascending: true });
 
       if (filters.search) {
         query = query.ilike("title", `%${filters.search}%`);

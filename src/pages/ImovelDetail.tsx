@@ -19,7 +19,8 @@ const ImovelDetail = () => {
       let query = supabase
         .from("opportunities")
         .select("*, opportunity_images(image_url)")
-        .eq("type", "IMOVEL");
+        .eq("type", "IMOVEL")
+        .order("created_at", { referencedTable: "opportunity_images", ascending: true });
 
       if (isUuid) {
         query = query.eq("id", slug);
