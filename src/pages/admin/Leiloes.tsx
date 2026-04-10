@@ -149,7 +149,7 @@ const AdminLeiloes = () => {
                                             </Button>
                                             {leilao.auctioneer_link && (
                                                 <a
-                                                    href={leilao.auctioneer_link}
+                                                    href={leilao.auctioneer_link.startsWith("http") ? leilao.auctioneer_link : `https://${leilao.auctioneer_link}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
