@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { MapPin, Calendar, FileText, ArrowLeft } from "lucide-react";
+import { MapPin, Calendar, FileText, ArrowLeft, ArrowDown } from "lucide-react";
 import { useState } from "react";
 
 const LeilaoDetail = () => {
@@ -113,7 +113,12 @@ const LeilaoDetail = () => {
 
             {/* Details */}
             <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">
+              {leilao.clickbait && (
+                <span className="inline-block px-4 py-1.5 bg-red-600 text-white text-xs font-black uppercase rounded-lg animate-pulse mb-4 shadow-lg">
+                  {leilao.clickbait}
+                </span>
+              )}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-primary mb-4 leading-tight">
                 {leilao.title}
               </h1>
 
@@ -130,11 +135,35 @@ const LeilaoDetail = () => {
                 )}
               </div>
 
-              <div className="card-premium p-6 mb-6">
-                <p className="text-sm text-muted-foreground mb-2">Valor Inicial</p>
-                <p className="text-4xl font-bold text-accent">
-                  R$ {Number(leilao.price).toLocaleString("pt-BR")}
-                </p>
+              <div className="card-premium p-8 mb-6 bg-gray-50 border-2 border-primary/5">
+                <div className="space-y-4">
+                  {leilao.valuation_value && (
+                    <div className="flex justify-between items-center text-muted-foreground">
+                      <span className="text-base font-medium">Avaliação de Mercado</span>
+                      <span className="text-xl font-bold line-through opacity-60 italic">
+                        R$ {Number(leilao.valuation_value).toLocaleString("pt-BR")}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pt-2 border-t border-primary/10">
+                    <div className="flex flex-col">
+                      <p className="text-sm text-accent-gold font-black uppercase tracking-wider mb-1">Valor 2ª Praça (Inicial)</p>
+                      <p className="text-5xl font-black text-green-600 tracking-tight">
+                        R$ {Number(leilao.price || leilao.second_floor_value).toLocaleString("pt-BR")}
+                      </p>
+                    </div>
+                    {leilao.discount_percentage && (
+                      <div className="bg-green-600 text-white px-4 py-2 rounded-2xl flex items-center gap-2 transform rotate-2 shadow-xl">
+                        <ArrowDown size={24} strokeWidth={3} />
+                        <div className="flex flex-col leading-none">
+                          <span className="text-[10px] uppercase font-bold">Economia de</span>
+                          <span className="text-2xl font-black">{leilao.discount_percentage}%</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
 
               <div className="mb-6">
@@ -156,6 +185,16 @@ const LeilaoDetail = () => {
                   </Button>
                 </a>
               </div>
+              {leilao.auctioneer_link && (
+                <a
+                  href={leilao.auctioneer_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-center text-xs text-muted-foreground hover:text-primary transition-colors underline underline-offset-4 mt-4"
+                >
+                  Ver no site do leiloeiro
+                </a>
+              )}
             </div>
           </div>
         </div>

@@ -25,7 +25,10 @@ const LeilaoForm = () => {
         state: "",
         neighborhood: "",
         price: "",
-        market_value: "",
+        valuation_value: "",
+        second_floor_value: "",
+        discount_percentage: "",
+        clickbait: "",
         auction_date: "",
         description: "",
         highlight: false,
@@ -34,6 +37,7 @@ const LeilaoForm = () => {
         bathrooms: "",
         garage: "",
         area: "",
+        auctioneer_link: "",
     });
     const [images, setImages] = useState<string[]>([]);
 
@@ -66,7 +70,10 @@ const LeilaoForm = () => {
                 state: data.state || "",
                 neighborhood: data.neighborhood || "",
                 price: data.price?.toString() || "",
-                market_value: data.market_value?.toString() || "",
+                valuation_value: data.valuation_value?.toString() || "",
+                second_floor_value: data.second_floor_value?.toString() || "",
+                discount_percentage: data.discount_percentage?.toString() || "",
+                clickbait: data.clickbait || "",
                 auction_date: data.auction_date ? data.auction_date.split('T')[0] : "",
                 description: data.description || "",
                 highlight: data.highlight || false,
@@ -75,6 +82,7 @@ const LeilaoForm = () => {
                 bathrooms: data.bathrooms?.toString() || "",
                 garage: data.garage?.toString() || "",
                 area: data.area?.toString() || "",
+                auctioneer_link: data.auctioneer_link || "",
             });
 
             const { data: imagesData } = await supabase
@@ -92,17 +100,35 @@ const LeilaoForm = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
 
-        if (name === "title" && !isEditing) {
-            const slug = value
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .replace(/[^a-z0-9]+/g, "-")
-                .replace(/(^-|-$)+/g, "");
-            setFormData((prev) => ({ ...prev, slug }));
-        }
+        setFormData((prev) => {
+            const newState = { ...prev, [name]: value };
+
+            // Calculate discount percentage automatically
+            if (name === "valuation_value" || name === "second_floor_value") {
+                const val = parseFloat(name === "valuation_value" ? value : prev.valuation_value);
+                const sec = parseFloat(name === "second_floor_value" ? value : prev.second_floor_value);
+
+                if (!isNaN(val) && !isNaN(sec) && val > 0) {
+                    const discount = ((val - sec) / val) * 100;
+                    newState.discount_percentage = discount.toFixed(0);
+                } else {
+                    newState.discount_percentage = "";
+                }
+            }
+
+            if (name === "title" && !isEditing) {
+                const slug = value
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/(^-|-$)+/g, "");
+                newState.slug = slug;
+            }
+
+            return newState;
+        });
     };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,16 +187,20 @@ const LeilaoForm = () => {
             city: formData.city,
             state: formData.state,
             neighborhood: formData.neighborhood,
-            price: formData.price ? parseFloat(formData.price) : null,
-            market_value: formData.market_value ? parseFloat(formData.market_value) : null,
+            price: formData.second_floor_value ? parseFloat(formData.second_floor_value) : (formData.price ? parseFloat(formData.price) : 0),
+            valuation_value: formData.valuation_value ? parseFloat(formData.valuation_value) : null,
+            second_floor_value: formData.second_floor_value ? parseFloat(formData.second_floor_value) : null,
+            discount_percentage: formData.discount_percentage ? parseFloat(formData.discount_percentage) : null,
+            clickbait: formData.clickbait,
             auction_date: formData.auction_date ? new Date(formData.auction_date).toISOString() : null,
             description: formData.description,
             highlight: formData.highlight,
-            type: "LEILAO",
+            type: "LEILAO" as "LEILAO" | "IMOVEL",
             bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
             bathrooms: formData.bathrooms ? parseInt(formData.bathrooms) : null,
             garage: formData.garage ? parseInt(formData.garage) : null,
             area: formData.area ? parseFloat(formData.area) : null,
+            auctioneer_link: formData.auctioneer_link || null,
         };
 
         let opportunityId = id;
@@ -327,29 +357,68 @@ const LeilaoForm = () => {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="space-y-2">
-                                <Label htmlFor="market_value" className="text-gray-300">Avaliação de Mercado (R$)</Label>
+                                <Label htmlFor="clickbait" className="text-accent-gold font-bold">Clickbait (Frase Chamativa)</Label>
                                 <Input
-                                    id="market_value"
-                                    name="market_value"
-                                    type="number"
-                                    value={formData.market_value}
+                                    id="clickbait"
+                                    name="clickbait"
+                                    value={formData.clickbait}
                                     onChange={handleInputChange}
-                                    className="bg-gray-800 border-gray-700 text-white"
-                                    placeholder="0,00"
+                                    className="bg-gray-800 border-accent-gold/30 text-white focus:border-accent-gold"
+                                    placeholder="Ex: 50% de DESCONTO - Oportunidade Única!"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="price" className="text-gray-300">Valor Inicial (2ª Praça) (R$)</Label>
+                                <Label htmlFor="auctioneer_link" className="text-gray-300">Link do Leiloeiro (Oculto)</Label>
                                 <Input
-                                    id="price"
-                                    name="price"
-                                    type="number"
-                                    value={formData.price}
+                                    id="auctioneer_link"
+                                    name="auctioneer_link"
+                                    value={formData.auctioneer_link}
                                     onChange={handleInputChange}
                                     className="bg-gray-800 border-gray-700 text-white"
-                                    placeholder="0,00"
-                                    required
+                                    placeholder="https://..."
                                 />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="valuation_value" className="text-gray-300">Valor de Avaliação (R$)</Label>
+                                    <Input
+                                        id="valuation_value"
+                                        name="valuation_value"
+                                        type="number"
+                                        value={formData.valuation_value}
+                                        onChange={handleInputChange}
+                                        className="bg-gray-800 border-gray-700 text-white"
+                                        placeholder="0,00"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="second_floor_value" className="text-gray-300 font-bold">Valor 2ª Praça (R$)</Label>
+                                    <Input
+                                        id="second_floor_value"
+                                        name="second_floor_value"
+                                        type="number"
+                                        value={formData.second_floor_value}
+                                        onChange={handleInputChange}
+                                        className="bg-gray-800 border-gray-700 text-white font-bold"
+                                        placeholder="0,00"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="discount_percentage" className="text-gray-300">Desconto (%)</Label>
+                                <div className="relative">
+                                    <Input
+                                        id="discount_percentage"
+                                        name="discount_percentage"
+                                        type="number"
+                                        value={formData.discount_percentage}
+                                        onChange={handleInputChange}
+                                        className="bg-gray-800 border-gray-700 text-white pr-8"
+                                        placeholder="Automático"
+                                    />
+                                    <span className="absolute right-3 top-2.5 text-gray-400">%</span>
+                                </div>
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="auction_date" className="text-gray-300 flex items-center gap-1"><Calendar size={14} /> Data do Leilão</Label>

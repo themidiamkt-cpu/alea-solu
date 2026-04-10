@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Filter } from "lucide-react";
+import { ArrowRight, Filter, MapPin, ArrowDown, Calendar } from "lucide-react";
 
 const Leiloes = () => {
   const [searchParams] = useSearchParams();
@@ -135,23 +135,55 @@ const Leiloes = () => {
                     />
                   </div>
                   <div className="p-6">
-                    {leilao.highlight && (
-                      <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full mb-2">
-                        Destaque
-                      </span>
-                    )}
-                    <h3 className="text-xl font-serif font-semibold mb-2 text-primary">
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="flex flex-col gap-1">
+                        {leilao.highlight && (
+                          <span className="inline-block px-3 py-1 bg-accent-gold/10 text-accent-gold text-[10px] font-bold uppercase rounded-full">
+                            Destaque
+                          </span>
+                        )}
+                        {leilao.clickbait && (
+                          <span className="inline-block px-3 py-1 bg-red-600 text-white text-[10px] font-black uppercase rounded-full animate-pulse">
+                            {leilao.clickbait}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-black mb-2 text-primary leading-tight group-hover:text-accent-gold transition-colors">
                       {leilao.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-sm text-muted-foreground mb-4 flex items-center gap-1">
+                      <MapPin size={14} className="text-accent-gold" />
                       {leilao.city} - {leilao.state}
                     </p>
+
+                    <div className="space-y-2 bg-gray-50 p-4 rounded-xl border border-gray-100 mb-4">
+                      {leilao.valuation_value && (
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="text-gray-500">Avaliação:</span>
+                          <span className="text-gray-700 line-through">R$ {Number(leilao.valuation_value).toLocaleString("pt-BR")}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between items-end">
+                        <div className="flex flex-col">
+                          <span className="text-xs text-accent-gold font-bold uppercase">2ª Praça</span>
+                          <span className="text-3xl font-black text-green-600 leading-none">
+                            R$ {Number(leilao.price || leilao.second_floor_value).toLocaleString("pt-BR")}
+                          </span>
+                        </div>
+                        {leilao.discount_percentage && (
+                          <div className="bg-green-100 text-green-700 text-sm font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
+                            <ArrowDown size={14} />
+                            {leilao.discount_percentage}%
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
                     <div className="flex items-center justify-between">
-                      <div>
-                        <span className="text-xs text-muted-foreground block">Valor inicial</span>
-                        <span className="text-2xl font-bold text-accent">
-                          R$ {Number(leilao.price).toLocaleString("pt-BR")}
-                        </span>
+                      <div className="flex items-center gap-2 text-xs text-gray-400">
+                        <Calendar size={14} />
+                        {leilao.auction_date ? new Date(leilao.auction_date).toLocaleDateString("pt-BR") : "Data a definir"}
                       </div>
                       <ArrowRight className="text-primary group-hover:translate-x-1 transition-transform" />
                     </div>

@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS public.opportunities (
   area FLOAT,
   auction_date TIMESTAMP WITH TIME ZONE,
   highlight BOOLEAN DEFAULT false,
+  auctioneer_link TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );

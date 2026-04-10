@@ -16,6 +16,8 @@ import {
   Key,
   Building2,
   ArrowRight,
+  ArrowDown,
+  Calendar,
   Mail,
   Phone,
   CheckCircle,
@@ -439,29 +441,54 @@ const Home = () => {
                     alt={property.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-accent-gold text-primary-navy text-xs font-bold px-3 py-1 rounded-full">
+                  <div className="absolute top-3 left-3 flex flex-col gap-2">
+                    <span className="bg-accent-gold text-primary-navy text-xs font-bold px-3 py-1 rounded-full shadow-lg">
                       Leilão
                     </span>
+                    {property.clickbait && (
+                      <span className="bg-red-600 text-white text-[10px] font-black uppercase px-2 py-1 rounded-md animate-pulse shadow-lg whitespace-nowrap">
+                        {property.clickbait}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-5">
-                  <h3 className="font-bold text-primary-navy mb-2 line-clamp-1 group-hover:text-accent-gold transition-colors">
+                  <h3 className="font-black text-primary-navy text-xl mb-1 line-clamp-2 group-hover:text-accent-gold transition-colors leading-tight">
                     {property.title}
                   </h3>
-                  <p className="text-gray-500 text-sm mb-3 flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
+                  <p className="text-gray-500 text-xs mb-4 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-accent-gold" />
                     {property.city || "São Paulo"}, {property.state || "SP"}
                   </p>
-                  {property.price && (
-                    <div className="text-green-600 font-bold text-xl">
-                      R$ {property.price.toLocaleString("pt-BR")}
+
+                  <div className="space-y-1 bg-gray-50 p-3 rounded-xl border border-gray-100 mb-3">
+                    {property.valuation_value && (
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="text-gray-500">Avaliação:</span>
+                        <span className="text-gray-700 line-through">R$ {Number(property.valuation_value).toLocaleString("pt-BR")}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between items-end">
+                      <div className="flex flex-col">
+                        <span className="text-[10px] text-accent-gold font-bold uppercase">2ª Praça</span>
+                        <span className="text-green-600 font-black text-xl leading-none">
+                          R$ {Number(property.price || property.second_floor_value).toLocaleString("pt-BR")}
+                        </span>
+                      </div>
+                      {property.discount_percentage && (
+                        <div className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-0.5">
+                          <ArrowDown className="w-3 h-3" />
+                          {property.discount_percentage}%
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
+
                   {property.auction_date && (
-                    <div className="text-xs text-gray-400 mt-2">
+                    <div className="text-[10px] text-gray-400 mt-2 flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
                       Leilão: {new Date(property.auction_date).toLocaleDateString("pt-BR")}
                     </div>
                   )}
@@ -520,11 +547,11 @@ const Home = () => {
 
                 {/* Content */}
                 <div className="p-5">
-                  <h3 className="font-bold text-primary-navy mb-2 line-clamp-1 group-hover:text-accent-gold transition-colors">
+                  <h3 className="font-black text-primary-navy text-xl mb-1 line-clamp-2 group-hover:text-accent-gold transition-colors leading-tight">
                     {property.title}
                   </h3>
-                  <p className="text-gray-500 text-sm mb-3 flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
+                  <p className="text-gray-500 text-xs mb-4 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-accent-gold" />
                     {property.city || "São Paulo"}, {property.state || "SP"}
                   </p>
                   {property.price && (
