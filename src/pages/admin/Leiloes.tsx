@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Search, Pencil, Trash, ImageIcon } from "lucide-react";
+import { Plus, Search, Pencil, Trash, ImageIcon, ExternalLink } from "lucide-react";
 import {
     Table,
     TableBody,
@@ -147,6 +147,22 @@ const AdminLeiloes = () => {
                                             >
                                                 <ImageIcon className="h-4 w-4" />
                                             </Button>
+                                            {leilao.auctioneer_link && (
+                                                <a
+                                                    href={leilao.auctioneer_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="hover:bg-gray-800 hover:text-blue-400"
+                                                        title="Ver no site do leiloeiro"
+                                                    >
+                                                        <ExternalLink className="h-4 w-4" />
+                                                    </Button>
+                                                </a>
+                                            )}
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
@@ -171,7 +187,7 @@ const AdminLeiloes = () => {
                     </TableBody>
                 </Table>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -185,16 +185,6 @@ const LeilaoDetail = () => {
                   </Button>
                 </a>
               </div>
-              {leilao.auctioneer_link && (
-                <a
-                  href={leilao.auctioneer_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-center text-xs text-muted-foreground hover:text-primary transition-colors underline underline-offset-4 mt-4"
-                >
-                  Ver no site do leiloeiro
-                </a>
-              )}
             </div>
           </div>
         </div>
