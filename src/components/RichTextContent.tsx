@@ -95,6 +95,24 @@ const sanitizeHtml = (content: string) => {
   return container.innerHTML;
 };
 
+const renderPlainText = (content: string) => {
+  const paragraphs = content
+    .split(/\n\s*\n/g)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  return paragraphs.map((paragraph, paragraphIndex) => (
+    <p key={paragraphIndex}>
+      {paragraph.split(/\n/g).map((line, lineIndex, lines) => (
+        <span key={lineIndex}>
+          {line}
+          {lineIndex < lines.length - 1 && <br />}
+        </span>
+      ))}
+    </p>
+  ));
+};
+
 export const RichTextContent = ({ content, className = "" }: RichTextContentProps) => {
   const safeContent = useMemo(() => {
     const value = content?.trim() || "";
@@ -109,5 +127,5 @@ export const RichTextContent = ({ content, className = "" }: RichTextContentProp
     return <div className={classes} dangerouslySetInnerHTML={{ __html: safeContent }} />;
   }
 
-  return <div className={`${classes} whitespace-pre-wrap`}>{safeContent}</div>;
+  return <div className={classes}>{renderPlainText(safeContent)}</div>;
 };
