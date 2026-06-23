@@ -63,6 +63,7 @@ export type Database = {
           id: string
           neighborhood: string | null
           price: number
+          property_code: string | null
           second_floor_value: number | null
           slug: string
           state: string
@@ -87,6 +88,7 @@ export type Database = {
           id?: string
           neighborhood?: string | null
           price: number
+          property_code?: string | null
           second_floor_value?: number | null
           slug: string
           state: string
@@ -111,6 +113,7 @@ export type Database = {
           id?: string
           neighborhood?: string | null
           price?: number
+          property_code?: string | null
           second_floor_value?: number | null
           slug?: string
           state?: string

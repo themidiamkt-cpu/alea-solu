@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Search, Pencil, Trash, ImageIcon } from "lucide-react";
+import { Plus, Search, Pencil, Trash } from "lucide-react";
 import {
     Table,
     TableBody,
@@ -68,9 +68,13 @@ const AdminImoveis = () => {
         }
     };
 
-    const filteredImoveis = imoveis.filter((imovel) =>
-        imovel.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredImoveis = imoveis.filter((imovel) => {
+        const search = searchTerm.toLowerCase();
+        return (
+            imovel.title.toLowerCase().includes(search) ||
+            imovel.property_code?.toLowerCase().includes(search)
+        );
+    });
 
     return (
         <div className="space-y-6">
@@ -87,7 +91,7 @@ const AdminImoveis = () => {
             <div className="flex items-center space-x-2 bg-gray-900 p-4 rounded-lg border border-gray-800">
                 <Search className="h-5 w-5 text-gray-500" />
                 <Input
-                    placeholder="Buscar imóveis..."
+                    placeholder="Buscar imóveis por título ou código..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="bg-transparent border-none text-white placeholder:text-gray-500 focus-visible:ring-0"
@@ -99,6 +103,7 @@ const AdminImoveis = () => {
                     <TableHeader className="bg-gray-900">
                         <TableRow className="border-gray-800 hover:bg-gray-900">
                             <TableHead className="text-gray-400">Título</TableHead>
+                            <TableHead className="text-gray-400">Código</TableHead>
                             <TableHead className="text-gray-400">Localização</TableHead>
                             <TableHead className="text-gray-400">Valor</TableHead>
                             <TableHead className="text-gray-400">Características</TableHead>
@@ -108,13 +113,13 @@ const AdminImoveis = () => {
                     <TableBody>
                         {loading ? (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center py-8 text-gray-500">
+                                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
                                     Carregando...
                                 </TableCell>
                             </TableRow>
                         ) : filteredImoveis.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={5} className="text-center py-8 text-gray-500">
+                                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
                                     Nenhum imóvel encontrado.
                                 </TableCell>
                             </TableRow>
@@ -123,6 +128,9 @@ const AdminImoveis = () => {
                                 <TableRow key={imovel.id} className="border-gray-800 hover:bg-gray-900/50">
                                     <TableCell className="font-medium text-gray-200">
                                         {imovel.title}
+                                    </TableCell>
+                                    <TableCell className="text-gray-400">
+                                        {imovel.property_code || "-"}
                                     </TableCell>
                                     <TableCell className="text-gray-400">
                                         {imovel.neighborhood ? `${imovel.neighborhood}, ` : ""}{imovel.city}/{imovel.state}

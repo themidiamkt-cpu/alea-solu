@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { RichTextContent } from "@/components/RichTextContent";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MapPin, Bed, Bath, Car, Ruler, ArrowLeft } from "lucide-react";
@@ -113,7 +114,7 @@ const ImovelDetail = () => {
               </div>
               <div className="mb-6">
                 <h2 className="text-2xl font-serif font-semibold mb-4">Descrição</h2>
-                <p className="text-foreground leading-relaxed">{imovel.description}</p>
+                <RichTextContent content={imovel.description} />
               </div>
               <a
                 href={`https://wa.me/5519992153727?text=${encodeURIComponent(`Olá, gostaria de saber mais sobre o imóvel: ${imovel.title}`)}`}

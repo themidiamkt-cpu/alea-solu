@@ -458,10 +458,17 @@ const Home = () => {
                   <h3 className="font-black text-primary-navy text-xl mb-1 line-clamp-2 group-hover:text-accent-gold transition-colors leading-tight">
                     {property.title}
                   </h3>
-                  <p className="text-gray-500 text-xs mb-4 flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-accent-gold" />
-                    {property.city || "São Paulo"}, {property.state || "SP"}
-                  </p>
+                  <div className="mb-4 flex min-h-[2rem] items-start justify-between gap-3">
+                    <p className="text-gray-500 text-xs flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-accent-gold" />
+                      {property.city || "São Paulo"}, {property.state || "SP"}
+                    </p>
+                    {property.property_code && (
+                      <span className="shrink-0 text-[10px] font-semibold text-gray-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+                        Cód. {property.property_code}
+                      </span>
+                    )}
+                  </div>
 
                   <div className="space-y-1 bg-gray-50 p-3 rounded-xl border border-gray-100 mb-3">
                     {property.valuation_value && (

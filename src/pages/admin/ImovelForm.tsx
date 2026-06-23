@@ -21,6 +21,7 @@ const ImovelForm = () => {
     const [formData, setFormData] = useState({
         title: "",
         slug: "",
+        property_code: "",
         city: "",
         state: "",
         neighborhood: "",
@@ -60,6 +61,7 @@ const ImovelForm = () => {
             setFormData({
                 title: data.title,
                 slug: data.slug,
+                property_code: data.property_code || "",
                 city: data.city,
                 state: data.state,
                 neighborhood: data.neighborhood || "",
@@ -154,6 +156,7 @@ const ImovelForm = () => {
         const opportunityData = {
             title: formData.title,
             slug: formData.slug,
+            property_code: formData.property_code || null,
             city: formData.city,
             state: formData.state,
             neighborhood: formData.neighborhood,
@@ -265,6 +268,17 @@ const ImovelForm = () => {
                                     onChange={handleInputChange}
                                     className="bg-gray-800 border-gray-700 text-white"
                                     required
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="property_code" className="text-gray-300">Código do imóvel</Label>
+                                <Input
+                                    id="property_code"
+                                    name="property_code"
+                                    value={formData.property_code}
+                                    onChange={handleInputChange}
+                                    className="bg-gray-800 border-gray-700 text-white"
+                                    placeholder="Ex: VF1458"
                                 />
                             </div>
                             <div className="space-y-2">

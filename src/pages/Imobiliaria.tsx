@@ -184,9 +184,16 @@ const Imobiliaria = () => {
                     <h3 className="text-xl font-serif font-semibold mb-2 text-primary">
                       {imovel.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      {imovel.neighborhood || imovel.city} - {imovel.state}
-                    </p>
+                    <div className="mb-4 flex min-h-[2.5rem] items-start justify-between gap-3">
+                      <p className="text-sm text-muted-foreground">
+                        {imovel.neighborhood || imovel.city} - {imovel.state}
+                      </p>
+                      {imovel.property_code && (
+                        <span className="shrink-0 text-[10px] font-semibold text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+                          Cód. {imovel.property_code}
+                        </span>
+                      )}
+                    </div>
 
                     {/* Property Features */}
                     <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">

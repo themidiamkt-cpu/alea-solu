@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { RichTextContent } from "@/components/RichTextContent";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MapPin, Calendar, FileText, ArrowLeft, ArrowDown } from "lucide-react";
@@ -168,9 +169,7 @@ const LeilaoDetail = () => {
 
               <div className="mb-6">
                 <h2 className="text-2xl font-serif font-semibold text-primary mb-4">Descrição</h2>
-                <p className="text-foreground leading-relaxed whitespace-pre-wrap">
-                  {leilao.description}
-                </p>
+                <RichTextContent content={leilao.description} />
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">

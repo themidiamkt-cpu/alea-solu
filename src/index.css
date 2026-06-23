@@ -118,6 +118,55 @@
   h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
   h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
   h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+
+  .rich-content > * + * {
+    margin-top: 1rem;
+  }
+
+  .rich-content h1,
+  .rich-content h2,
+  .rich-content h3,
+  .rich-content h4,
+  .rich-content h5,
+  .rich-content h6 {
+    color: hsl(var(--primary));
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .rich-content h1 { font-size: 2rem; }
+  .rich-content h2 { font-size: 1.5rem; }
+  .rich-content h3 { font-size: 1.25rem; }
+
+  .rich-content ul,
+  .rich-content ol {
+    padding-left: 1.5rem;
+  }
+
+  .rich-content ul {
+    list-style: disc;
+  }
+
+  .rich-content ol {
+    list-style: decimal;
+  }
+
+  .rich-content li + li {
+    margin-top: 0.35rem;
+  }
+
+  .rich-content a {
+    color: hsl(var(--primary));
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .rich-content blockquote {
+    border-left: 3px solid hsl(var(--accent));
+    color: hsl(var(--muted-foreground));
+    padding-left: 1rem;
+  }
 }
 
 @layer components {

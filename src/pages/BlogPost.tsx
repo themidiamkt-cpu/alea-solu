@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { RichTextContent } from "@/components/RichTextContent";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar, ArrowLeft } from "lucide-react";
@@ -49,9 +50,7 @@ const BlogPost = () => {
               {new Date(post.created_at).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })}
             </div>
           </div>
-          <div className="prose prose-lg max-w-none">
-            <div className="text-foreground leading-relaxed whitespace-pre-wrap">{post.content}</div>
-          </div>
+          <RichTextContent content={post.content} />
         </div>
       </article>
       <Footer />

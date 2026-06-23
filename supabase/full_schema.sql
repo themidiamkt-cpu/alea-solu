@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS public.opportunities (
   type opportunity_type NOT NULL,
   title TEXT NOT NULL,
   slug TEXT UNIQUE NOT NULL,
+  property_code TEXT,
   description TEXT NOT NULL,
   price NUMERIC NOT NULL,
   city TEXT NOT NULL,
